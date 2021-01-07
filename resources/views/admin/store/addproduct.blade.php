@@ -34,7 +34,8 @@
 			<div class="panel panel-default">
   <div class="panel-body">
 			
-<form action="/action_page.php">
+<form action="{{route('add_product')}}" method="post">
+@csrf
 
  <div class="row">
   
@@ -42,152 +43,187 @@
 <div class="form-group">
 <label for="email">النوع</label>
 <div class="radio">
-  <label><input type="radio" name="item_type" value="1" onclick="info1_disable()" checked>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;منتج</label>
-  <label><input type="radio" name="item_type" value="2" onclick="info2_enable()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;خام</label>
-  <label><input type="radio" name="item_type" value="3" onclick="info3_enable()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;خدمة</label>
+  <label><input type="radio" name="item_type" value="1" onclick="service_fields_disable()" checked>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;منتج</label>
+  <label><input type="radio" name="item_type" value="2" onclick="service_fields_disable()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;خام</label>
+  <label><input type="radio" name="item_type" value="3" onclick="service_fields_enable()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;خدمة</label>
 </div>
 
 </div>
 </div>
 
-
+ 
  <div class="col-sm-4">
-
     <div class="form-group">
       <label for="email">اسم الصنف</label>
       <input type="text" class="form-control"  name="item_name" required>
     </div>
+  </div>
 
+<div class="col-sm-4">
+<div class="form-group">
+  <label for="email">نوع الضريبة </label>
+<select class="form-control"  name="tax_type">
+        <option value="1">خاضع</option>
+        <option value="0">غير خاضع</option>
+      </select>
+</div>
+</div>
+
+<div class="col-sm-4">
     <div class="form-group">
       <label for="email">سعر البيع الافتراضى</label>
       <input type="text" class="form-control" name="defaultprice_sale" required>
     </div>
-
-
-    <div class="form-group">
-       <label for="email">التصنيف الرئيسى</label>
-      <input type="text" class="form-control" name="main_category" required>
-    </div>
-
-
-
-<div class="form-group">
-   <label for="email">المخزون الافتتاحى</label>
-      <input type="text" class="form-control" name="open_stock" required>
-    </div>
-
-
-
-<div class="form-group">
-  <label for="email">المادة الفعالة</label>
-      <input type="text" class="form-control" name="react_material" required>
-    </div>
-
-
-</div><!-------col---->
-
-
- <div class="col-sm-4">
-
-
-    <div class="form-group">
-       <label for="email">رقم الصنف</label>
-      <input type="text" class="form-control" name="item_code" disabled>
-    </div>
-
-
-
-    <div class="form-group">
-      <label for="email">المخزن الافتراضى</label>
-      <input type="text" class="form-control" name="default_stock" required>
-    </div>
-
-
-
-
-<div class="form-group">
-  <label for="email">التصنيف الفرعى</label>
-      <input type="text" class="form-control" name="sub_category" required>
-    </div>
-
-
-
-
-<div class="form-group">
-   <label for="email">حد تنيه انتهاء المخزون</label>
-      <input type="text" class="form-control" name="stock_limit_alarm" required>
-    </div>
-
-
-
-<div class="form-group">
-   <label for="email">التركيز</label>
-      <input type="text" class="form-control" name="concentrate" required>
-    </div>
-
-
-
-</div><!-------col---->
-
-
- <div class="col-sm-4">
-
-    <div class="form-group">
-       <label for="email">سعر الشراء الافتراضى</label>
-      <input type="text" class="form-control" name="defaultprice_purchase" required>
-    </div>
-
-
-
-<div class="form-group">
-  <label for="email">نوع الضريبة </label>
-<select class="form-control"  name="tax_type">
-        <option>خاضع</option>
-        <option>غير خاضع</option>
-      </select>
 </div>
 
 
+<div class="col-sm-4">
+    <div class="form-group">
+       <label for="email">التصنيف الرئيسى</label>
+       <select class="form-control" name="main_category" id="main_category" onChange="main_category_val()">
+        <option value="-1" disabled selected>اختر الفئة الرئيسية</option>
+        @foreach($categories as $index=>$value)
+        <option value="{{$value->sup_category}}">{{$value->category}}</option>
+        @endforeach
+       </select>
+    </div>
+  </div>  
+
+
+
+<div class="col-sm-4">
+<div class="form-group">
+  <label for="email">التصنيف الفرعى</label>
+   <select class="form-control" name="sub_category" id="subcat">
+       </select>
+   </div>
+ </div>
+
+<script>
+  function main_category_val() {
+
+    var d = JSON.parse(document.getElementById("main_category").value);
+    //document.getElementById("lis_val").value = d;
+    
+    //console.log(d);
+
+    var catOptions = "";
+    catOptions += "<option value='' disabled selected=''>إختر الفئة الفرعية</option>";
+     if (d.length == 0) {
+      //document.getElementById("subcat").innerHTML = "<option></option>";
+      }else {
+        var name = d.map(({category}) => category);
+        var id = d.map(({id}) => id);
+        for (x in name) {
+          catOptions += "<option value ='" + id[x] +"'>" + name[x] + "</option>";
+        }
+       // console.log("ddd",d);
+      }
+      document.getElementById("subcat").innerHTML = catOptions;
+  }
+</script>
+
+
+<!---------------------------------------------------->
+<div id="item_more">
+
+<div class="col-sm-4">
+<div class="form-group">
+   <label for="email">المخزون الافتتاحى</label>
+      <input type="text" class="form-control" name="multi_amount[]" >
+    </div>
+  </div> 
+
+<div class="col-sm-4">
+<div class="form-group">
+  <label for="email">المادة الفعالة</label>
+      <input type="text" class="form-control" name="react_material" >
+    </div>
+</div>
+
+
+
+
+
+<div class="col-sm-4">
+    <div class="form-group">
+      <label for="email">المخزن الافتراضى</label>
+      <select class="form-control" name="multi_store[]">
+        <option value="-1" disabled selected>اختر المخزن الإفتراضي</option>
+        @foreach($main_stores as $value)
+        <option value="{{$value->id}}">{{$value->store_name}}</option>
+        @endforeach
+       </select>
+    </div>
+</div>
+
+
+
+
+<div class="col-sm-4">
+<div class="form-group">
+   <label for="email">حد تنيه انتهاء المخزون</label>
+      <input type="text" class="form-control" name="stock_limit_alarm" >
+    </div>
+</div>
+
+
+<div class="col-sm-4">
+<div class="form-group">
+   <label for="email">التركيز</label>
+      <input type="text" class="form-control" name="concentrate" >
+    </div>
+</div>
+
+
+ <div class="col-sm-4">
+    <div class="form-group">
+       <label for="email">سعر الشراء الافتراضى</label>
+      <input type="text" class="form-control" name="defaultprice_purchase" >
+    </div>
+</div>
+
+
+
+
+<div class="col-sm-4">
 <div class="form-group">
    <label for="email">sku رمز المصنع </label>
-      <input type="text" class="form-control" name="sku_code" required>
+      <input type="text" class="form-control" name="sku_code" >
     </div>
+</div>
 
 
-
+<div class="col-sm-4">
 <div class="form-group">
   <label for="email">نوع تتبع  المخزون</label>
-      <input type="text" class="form-control" name="stock_tracking" required>
+      <select class="form-control"  name="stock_tracking" >
+        <option disabled selected>اختر نوع التتبع</option>
+        <option value="0">التاريخ</option>
+        <option value="1">الكمية</option>
+      </select>
     </div>
+</div>
 
 
-
+<div class="col-sm-4">
 <div class="form-group">
   <label for="email">نوع المنتج</label>
-      <input type="text" class="form-control" name="pro_type" required>
+      <select class="form-control"  name="pro_type">
+        <option disabled selected>اختر نوع المنتج</option>
+        @foreach($pro_types as $value)
+          <option value="{{$value->id}}">{{$value->type}}</option>
+        @endforeach
+      </select>
     </div>
-
-
-</div><!-------col---->
-
+</div>
 
 
 
-
-
-
-
-</div><!-------row----->
-
-
-
-
-
-<div class="row">
  <div class="col-sm-4">
 <div class="form-group">
   <label for="email">تاريخ الانتاج</label>
-      <input type="date" class="form-control" name="production_date" required>
+      <input type="date" class="form-control" name="multi_production_date[]" >
     </div>
  </div>
 
@@ -195,22 +231,20 @@
  <div class="col-sm-4">
     <div class="form-group">
 	  <label for="email">تاريخ الانتهاء</label>
-      <input type="date" class="form-control" name="expire_date" required>
+      <input type="date" class="form-control" name="multi_expire_date[]" >
     </div>
  </div>
-
-
 
 
 
 <div class="col-sm-4">
 <div class="form-group">
   <label for="email">ملاحظات</label>
-      <input type="text" class="form-control" name="notes" required>
+      <input type="text" class="form-control" name="multi_notes[]" >
     </div>
  </div>
 
-</div>
+
 
  <div class="col-sm-12">
     <div class="form-group form-check">
@@ -221,6 +255,10 @@
     </div>
  </div>
 
+</div>
+
+
+</div>
 
 <div id="multi_values">
 
@@ -238,7 +276,15 @@
 				<th>حذف</th>
             </tr>
             <tr>  
-                <td><input type="text" name="multi_store[]"  class="form-control" /></td>  
+                <td>
+                  <select name="multi_store[]"  class="form-control" >
+                    <option value="-1" disabled selected>اختر المخزن</option>
+
+                    @foreach($stores as $value)
+                    <option value="{{$value->id}}">{{$value->store_name}}</option>
+                    @endforeach
+                  </select>  
+                </td>  
                 <td><input type="text" name="multi_amount[]"  class="form-control" /></td>  
                 <td><input type="date" name="multi_production_date[]"  class="form-control" /></td>  
 				 <td><input type="date" name="multi_expire_date[]"  class="form-control" /></td>  
@@ -272,6 +318,16 @@
         </div>
 <script>
 
+  
+
+    function service_fields_disable(){
+document.getElementById("item_more").style.display = "block";
+}
+
+function service_fields_enable(){
+document.getElementById("item_more").style.display = "none";
+}
+
 function enable_disable_multival(){
  // Get the checkbox
   var checkBox = document.getElementById("active_multi_val");
@@ -304,4 +360,6 @@ function enable_disable_multival(){
     });  
    
 </script>
+
+
     @endsection

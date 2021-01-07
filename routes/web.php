@@ -134,6 +134,16 @@ Route::get('addproduct', function () {
     return view('admin/store/addproduct');
 });
 
+Route::get('productservice', 'StoreController@show_all_products')->name('productservice');
+
+Route::get('addproduct', 'StoreController@add_product_page')->name('addproduct');
+
+Route::post('add_product', 'StoreController@add_new_product')->name('add_product');
+
+Route::get('productdetail/{id}', 'StoreController@show_product_detail')->name('productdetail');
+
+Route::post('add_new_stock', 'StoreController@add_new_stock')->name('add_new_stock');
+
 
 //--------------------------------------employee manage------------------------------
 Route::get('manageemployee', 'EmployeeController@show_all_employee')->name('manageemployee');

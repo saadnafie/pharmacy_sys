@@ -29,7 +29,7 @@
 			<br><br>
 			<div class="row">
 			<div class="col-md-3">
-			<b>اجمالي عدد المنتجات</b> <span style="color:green;font-size:16px;">3</span>
+			<b>اجمالي عدد المنتجات</b> <span style="color:green;font-size:16px;">{{count($products)}}</span>
 			</div>
 			<div class="col-md-3">
 			<b>اجمالي تكلفة المنتجات</b> <span style="color:green;font-size:16px;">500</span>
@@ -52,15 +52,19 @@
       </tr>
     </thead>
     <tbody>
+        @foreach($products as $index=>$product)
       <tr>
-        <td>1</td>
-        <td>24124124</td>
-		<td>هاتف ذكي</td>
-        <td>12/11/2020</td>
+        <td>{{$index+1}}</td>
+        <td>{{$product->code}}</td>
+		<td>{{$product->name}}</td>
+        <td>{{$product->created_at}}</td>
 		<td>10</td>
 		<td>500</td>
-        <td>-</td>
+        <td>
+        <a href="{{url('productdetail')}}/{{$product->id}}" class="btn btn-info">
+            <i class="fa fa-eye" aria-hidden="true"></i></a></td>
       </tr>
+      @endforeach
     </tbody>
   </table>
    </div>
