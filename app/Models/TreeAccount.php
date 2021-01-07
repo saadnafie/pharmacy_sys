@@ -1,11 +1,15 @@
 <?php
 
 namespace App\Models;
-
+use App;
 use Illuminate\Database\Eloquent\Model;
 
 class TreeAccount extends Model
 {
+	//protected $hidden = ['id','id_code','name_ar','account_type','final_account_id','user_id', 'parent_id', 'status', 'created_at', 'updated_at'];
+      protected $appends =['text','a_attr'];
+	
+	
 	public function account()
 	{
    		return $this->hasMany('App\Models\TreeAccount', 'parent_id');
@@ -18,4 +22,23 @@ class TreeAccount extends Model
 	   // which is equivalent to:
 	   // return $this->hasMany('Survey', 'parent')->with('childrenRecursive);
 	}
+	
+	public function children()
+	{
+	   return $this->account()->with('children');
+	   // which is equivalent to:
+	   // return $this->hasMany('Survey', 'parent')->with('childrenRecursive);
+	}
+	
+	public function getTextAttribute($value) {
+        //return $this->{'name_ar'};
+		 return $this->{'name_' . App::getLocale()};
+    }
+	
+	public function getAAttrAttribute($value) {
+		$respo['href'] = url('/customerlist');
+		$x = $respo;
+		//$x = {'href': url('/customerlist')};
+		return $x;
+    }
 }

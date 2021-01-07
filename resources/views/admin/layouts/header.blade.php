@@ -245,8 +245,8 @@ th,td{
                         <li id="removable">
                             <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span><span class="mini-click-non">{{ __('adminpanel.finance') }}</span></a>
                             <ul class="submenu-angle page-mini-nb-dp" aria-expanded="false">
-                                <li><a title="Lock" href="#"><span class="mini-sub-pro">{{ __('adminpanel.bank_account_safe') }}</span></a></li>
-                                <li><a title="Password Recovery" href="#"><span class="mini-sub-pro">{{ __('adminpanel.daily_movements') }}</span></a></li>
+                                <li><a title="Lock" href="{{url('treasurybanklist')}}"><span class="mini-sub-pro">{{ __('adminpanel.bank_account_safe') }}</span></a></li>
+                                <li><a title="Password Recovery" href="{{url('dailyentrylist')}}"><span class="mini-sub-pro">{{ __('adminpanel.daily_movements') }}</span></a></li>
                                 <li><a title="404 Page" href="{{url('accountstree')}}"><span class="mini-sub-pro">{{ __('adminpanel.accounts_tree') }}</span></a></li>
                                 <li><a title="500 Page" href="#"><span class="mini-sub-pro">{{ __('adminpanel.assets') }}</span></a></li>
                                 <li><a title="500 Page" href="#"><span class="mini-sub-pro">{{ __('adminpanel.cost_centers') }}</span></a></li>
@@ -567,8 +567,8 @@ th,td{
     <!-- morrisjs JS
         ============================================ -->
     <script src="{{asset('js/morrisjs/raphael-min.js')}}"></script>
-    <script src="{{asset('js/morrisjs/morris.js')}}"></script>
-    <script src="{{asset('js/morrisjs/morris-active.js')}}"></script>
+    <!--<script src="{{asset('js/morrisjs/morris.js')}}"></script>
+    <script src="{{asset('js/morrisjs/morris-active.js')}}"></script>-->
     <!-- morrisjs JS
         ============================================ -->
     <script src="{{asset('js/sparkline/jquery.sparkline.min.js')}}"></script>

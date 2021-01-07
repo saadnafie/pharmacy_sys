@@ -27,9 +27,17 @@ class OwnerController extends Controller
     {
         $allaccountslist = TreeAccount::where('account_type', 0)->get();
 
-        $allaccounts = TreeAccount::whereNull('parent_id')->with('account_tree')->get();
-        //return $allCategories;
-        return view('admin.accountstree',compact('allaccounts', 'allaccountslist'));
+        $allaccounts = TreeAccount::whereNull('parent_id')->with('children')->get();
+		
+		$data['data'] =  $allaccounts;
+		
+		$core =  json_encode(array('core'=>$data));
+        //return $core;->with('account_tree')
+		
+		//$core = json_encode($core2);
+		//return $core;
+		
+        return view('admin.accountstree2',compact('allaccounts', 'allaccountslist', 'core'));
     }
 
     public function add_new_accounttree(Request $request)
