@@ -35,10 +35,23 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
+//--------------------------------------finance------------------------------
+
+
 Route::get('/accountstree', 'OwnerController@display_account_tree')->name('accountstree');
 Route::post('/add_new_accounttree', 'OwnerController@add_new_accounttree')->name('add_new_accounttree');
 
+Route::get('dailyentrylist', function () {
+    return view('admin/dailyentrylist');
+});
 
+Route::get('dailyentry', function () {
+    return view('admin/dailyentry');
+});
+
+Route::get('treasurybanklist', function () {
+    return view('admin/treasurybanklist');
+});
 //--------------------------------------sales------------------------------
 Route::get('managebill', function () {
     return view('admin/sale/managebill');
