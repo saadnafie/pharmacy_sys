@@ -191,7 +191,7 @@
 @if($product->type == 1 || $product->type == 2)
 <br><br>
 <!-- Trigger the modal with a button -->
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">اضف مخزون جديد</button>
+<!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">اضف مخزون جديد</button>-->
 
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
@@ -250,7 +250,7 @@
     </div>
 
   </div>
-</div>
+
 
 
 <div class="row">
@@ -260,6 +260,11 @@
       <table class="table table-bordered table-striped" id="dynamicTable">  
           <tr>
             <th>#</th>
+			<th>المستخدم</th>
+			<th>رقم فاتورة</th>
+			<th>اسم المورد</th>
+			<th>سعر الشراء</th>
+			<th>تاريخ الشراء</th>
             <th>المخزن</th>
             <th>الكمية</th>
             <th>تاريخ الانتاج</th>
@@ -269,11 +274,16 @@
           @foreach($product->product->dates as $index=>$value)
           <tr>  
             <td>{{$index+1}}</td>
-            <td><input type="text" class="form-control" value="{{$value->store->store_name}}" disabled></td>  
-            <td><input type="text" class="form-control" value="{{$value->quantity}}" disabled></td>  
-            <td><input type="text" class="form-control" value="{{$value->production_date}}" disabled></td>  
-		        <td><input type="text" class="form-control" value="{{$value->expire_date}}" disabled></td>  
-            <td><input type="text" class="form-control" value="{{$value->note}}" disabled></td> 
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>{{$value->cost}}</td>
+			<td></td>
+            <td>{{$value->store->store_name}}</td>  
+            <td>{{$value->quantity}}</td>  
+            <td>{{$value->production_date}}</td>  
+		    <td>{{$value->expire_date}}</td>  
+            <td>{{$value->note}}</td> 
           </tr> 
           @endforeach 
       </table> 
@@ -282,6 +292,9 @@
 </div>
 
 @endif
+
+
+</div>
 
 </div>
 

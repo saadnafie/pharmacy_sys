@@ -32,7 +32,10 @@
 			<b>اجمالي عدد المنتجات</b> <span style="color:green;font-size:16px;">{{count($products)}}</span>
 			</div>
 			<div class="col-md-3">
-			<b>اجمالي تكلفة المنتجات</b> <span style="color:green;font-size:16px;">500</span>
+			<b>اجمالي الكمية</b> <span style="color:green;font-size:16px;">{{$products->sum('product.total_quantity')}}</span>
+			</div>
+			<div class="col-md-3">
+			<b>متوسط تكلفة المنتجات</b> <span style="color:green;font-size:16px;">{{round($products->sum('product.avg_cost'),2)}}</span>
 			</div>
 			</div>
 <br>
@@ -58,8 +61,14 @@
         <td>{{$product->code}}</td>
 		<td>{{$product->name}}</td>
         <td>{{$product->created_at}}</td>
-		<td>10</td>
-		<td>500</td>
+		@if(isset($product->product))
+			<td>{{$product->product->total_quantity}}</td>
+			<td>{{round($product->product->total_cost/$product->product->total_quantity,2)}}</td>
+		@else
+			<td>0</td>
+			<td>0</td>
+		@endif
+		
         <td>
         <a href="{{url('productdetail')}}/{{$product->id}}" class="btn btn-info">
             <i class="fa fa-eye" aria-hidden="true"></i></a></td>

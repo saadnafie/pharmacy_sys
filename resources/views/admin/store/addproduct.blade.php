@@ -2,9 +2,22 @@
 
 @section('content')
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet" />
+
 <style>
 #multi_values{
 	display:none;
+}
+
+.select2-container .select2-selection--single{
+    height:34px !important;
+	width:100%;
+}
+.select2-container--default .select2-selection--single{
+         border: 1px solid #ccc !important; 
+     border-radius: 0px !important; 
 }
 </style>
       <div class="breadcome-area">
@@ -80,7 +93,7 @@
 <div class="col-sm-4">
     <div class="form-group">
        <label for="email">التصنيف الرئيسى</label>
-       <select class="form-control" name="main_category" id="main_category" onChange="main_category_val()">
+       <select class="form-control selectpicker"  data-live-search="true" name="main_category" id="main_category" onChange="main_category_val()">
         <option value="-1" disabled selected>اختر الفئة الرئيسية</option>
         @foreach($categories as $index=>$value)
         <option value="{{$value->sup_category}}">{{$value->category}}</option>
@@ -94,7 +107,7 @@
 <div class="col-sm-4">
 <div class="form-group">
   <label for="email">التصنيف الفرعى</label>
-   <select class="form-control" name="sub_category" id="subcat">
+   <select class="form-control"  name="sub_category" id="subcat">
        </select>
    </div>
  </div>
@@ -130,7 +143,7 @@
 <div class="col-sm-4">
 <div class="form-group">
    <label for="email">المخزون الافتتاحى</label>
-      <input type="text" class="form-control" name="multi_amount[]" >
+      <input type="text" class="form-control" name="base_amount" >
     </div>
   </div> 
 
@@ -148,7 +161,7 @@
 <div class="col-sm-4">
     <div class="form-group">
       <label for="email">المخزن الافتراضى</label>
-      <select class="form-control" name="multi_store[]">
+      <select class="form-control selectpicker" name="multi_store[]" data-live-search="true">
         <option value="-1" disabled selected>اختر المخزن الإفتراضي</option>
         @foreach($main_stores as $value)
         <option value="{{$value->id}}">{{$value->store_name}}</option>
@@ -219,11 +232,11 @@
 </div>
 
 
-
+<div id="if_multi_date">
  <div class="col-sm-4">
 <div class="form-group">
   <label for="email">تاريخ الانتاج</label>
-      <input type="date" class="form-control" name="multi_production_date[]" >
+      <input type="date" class="form-control" name="base_production_date" >
     </div>
  </div>
 
@@ -231,7 +244,7 @@
  <div class="col-sm-4">
     <div class="form-group">
 	  <label for="email">تاريخ الانتهاء</label>
-      <input type="date" class="form-control" name="multi_expire_date[]" >
+      <input type="date" class="form-control" name="base_expire_date" >
     </div>
  </div>
 
@@ -240,16 +253,16 @@
 <div class="col-sm-4">
 <div class="form-group">
   <label for="email">ملاحظات</label>
-      <input type="text" class="form-control" name="multi_notes[]" >
+      <input type="text" class="form-control" name="base_note" >
     </div>
  </div>
-
+</div>
 
 
  <div class="col-sm-12">
     <div class="form-group form-check">
       <label class="form-check-label">
-        <input class="form-check-input" type="checkbox" id="active_multi_val" name="active_multi_val" onclick="enable_disable_multival()" >&nbsp;&nbsp;&nbsp;&nbsp;تواريخ متعددة
+        <input class="form-check-input" type="checkbox" id="active_multi_val" name="active_multi_val" value="1" onclick="enable_disable_multival()" >&nbsp;&nbsp;&nbsp;&nbsp;تواريخ متعددة
 
       </label>
     </div>
@@ -265,11 +278,12 @@
 <div class="row">
  <div class="col-sm-12">
 <br><button type="button" name="add" id="add" class="btn btn-success"><i class="fa fa-plus"></i></button><br><br>
-<div class="table-responsive">
+
         <table class="table table-bordered table-striped" id="dynamicTable">  
             <tr>
                 <th>المخزن</th>
                 <th>الكمية</th>
+				<th>السعر</th>
                 <th>تاريخ الانتاج</th>
                 <th>تاريخ الانتهاء</th>
 				<th>ملاحظات</th>
@@ -277,7 +291,7 @@
             </tr>
             <tr>  
                 <td>
-                  <select name="multi_store[]"  class="form-control" >
+                  <select name="multi_store[]"  class="form-control selectpicker"  data-live-search="true">
                     <option value="-1" disabled selected>اختر المخزن</option>
 
                     @foreach($stores as $value)
@@ -286,15 +300,18 @@
                   </select>  
                 </td>  
                 <td><input type="text" name="multi_amount[]"  class="form-control" /></td>  
+				<td><input type="text" name="multi_price[]"  class="form-control" /></td>  
                 <td><input type="date" name="multi_production_date[]"  class="form-control" /></td>  
 				 <td><input type="date" name="multi_expire_date[]"  class="form-control" /></td>  
                 <td><input type="text" name="multi_notes[]"  class="form-control" /></td> 
                 <td><button type="button" class="btn btn-danger remove-tr"><i class="fa fa-trash"></i></button></td>  
             </tr>  
         </table> 
-		</div>
+		
+		
 </div>
 </div>
+
 </div>
 
 <div class="col-sm-12">
@@ -316,9 +333,9 @@
 
             </div>
         </div>
+		
 <script>
 
-  
 
     function service_fields_disable(){
 document.getElementById("item_more").style.display = "block";
@@ -335,8 +352,10 @@ function enable_disable_multival(){
   // If the checkbox is checked, display the output text
   if (checkBox.checked == true){
    document.getElementById("multi_values").style.display = "block";
+   document.getElementById("if_multi_date").style.display = "none";
   } else {
     document.getElementById("multi_values").style.display = "none";
+	document.getElementById("if_multi_date").style.display = "block";
   }
 }
 
@@ -352,14 +371,20 @@ function enable_disable_multival(){
    
         ++i;
    
-        $("#dynamicTable").append('<tr><td><input type="text" name="multi_store[]" class="form-control" /></td><td><input type="text" name="multi_amount[]"  class="form-control" /></td><td><input type="date" name="multi_production_date[]"  class="form-control" /></td><td><input type="date" name="multi_expire_date[]"  class="form-control" /></td><td><input type="text" name="multi_notes[]"  class="form-control" /></td><td><button type="button" class="btn btn-danger remove-tr"><i class="fa fa-trash"></i></button></td></tr>');
+        $("#dynamicTable").append('<tr><td><select name="multi_store[]"  class="form-control selectpicker"  data-live-search="true"><option value="-1">اختر المخزن</option><option value="2">1 المخزن</option></select> </td><td><input type="text" name="multi_amount[]"  class="form-control" /></td><td><input type="text" name="multi_price[]"  class="form-control" /></td><td><input type="date" name="multi_production_date[]"  class="form-control" /></td><td><input type="date" name="multi_expire_date[]"  class="form-control" /></td><td><input type="text" name="multi_notes[]"  class="form-control" /></td><td><button type="button" class="btn btn-danger remove-tr"><i class="fa fa-trash"></i></button></td></tr>');
     });
    
     $(document).on('click', '.remove-tr', function(){  
          $(this).parents('tr').remove();
     });  
    
+   
+     $(function() {
+  $('.selectpicker').selectpicker();
+});
+
 </script>
 
 
     @endsection
+	
