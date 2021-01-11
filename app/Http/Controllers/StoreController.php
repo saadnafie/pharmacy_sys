@@ -87,7 +87,10 @@ class StoreController extends Controller
     /////////////////////////////////////// products //////////////////////////////////////////////
 
     public function show_all_products(){
-      $products = Item::all();
+      $products = /*Item::with('product')->with(['product' => function($query){
+		$query->sum('total_quantity');}])->get();*/
+		$products = Item::with('product')->get();
+	  //return $products;
       return view('admin.store.productservice',compact('products'));
     }
 
