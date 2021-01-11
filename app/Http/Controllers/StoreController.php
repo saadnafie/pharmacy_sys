@@ -40,7 +40,8 @@ class StoreController extends Controller
       //return auth()->user();
 
       $store = new Store();
-      $store->store_name = $request->store_name;
+      $store->store_name_en = $request->store_name_en;
+      $store->store_name_ar = $request->store_name_ar;
       $store->store_code = "st";
       $store->address = $request->store_address;
       $store->city = $request->store_city;
@@ -75,7 +76,8 @@ class StoreController extends Controller
     public function edit_store(Request $request){
       //return $request;
       $store = Store::find($request->store_id);
-      $store->store_name = $request->store_name;
+      $store->store_name_en = $request->store_name_en;
+      $store->store_name_ar = $request->store_name_ar;
       $store->address = $request->store_address;
       $store->city = $request->store_city;
       $store->area = $request->store_area;
@@ -87,10 +89,7 @@ class StoreController extends Controller
     /////////////////////////////////////// products //////////////////////////////////////////////
 
     public function show_all_products(){
-      $products = /*Item::with('product')->with(['product' => function($query){
-		$query->sum('total_quantity');}])->get();*/
-		$products = Item::with('product')->get();
-	  //return $products;
+		  $products = Item::with('product')->get();
       return view('admin.store.productservice',compact('products'));
     }
 
@@ -103,14 +102,51 @@ class StoreController extends Controller
     }
 
     public function add_new_product(Request $request){
-      //return ($request->multi_store)[0];//$request;
+      $this->validate($request, [
+          'sub_category' => 'required',
+        ]);
+      if($request->item_type == 1 || $request->item_type == 2){
+        $this->validate($request, [
+          'defaultprice_purchase' => 'required',
+          'base_store' => 'required',
+          'sku_code' => 'required|unique:products,SKU_code',
+          'stock_limit_alarm' => 'required',
+          'react_material_en' => 'required',
+          'react_material_ar' => 'required',
+          'concentrate' => 'required',
+          'pro_type' => 'required',
+          'base_amount' => 'required',
+          'defaultprice_purchase' => 'required',
+          'base_store' => 'required',
+        ]);
+
+        if(isset($request->active_multi_val) && $request->active_multi_val == 1){
+          $this->validate($request, [
+            'multi_production_date' => 'required|min:1',
+            'multi_expire_date' => 'required',
+            'multi_amount' => 'required',
+            'multi_price' => 'required',
+            'multi_store' => 'required',
+            'multi_notes' => 'required',
+          ]);
+        }else{
+          $this->validate($request, [
+            'base_production_date' => 'required',
+            'base_expire_date' => 'required',
+            'base_note' => 'required',
+          ]);
+        }
+      }
+
       $item = new Item();
       $item->code = "10000";
-      $item->name = $request->item_name;
+      $item->name_en = $request->item_name_en;
+      $item->name_ar = $request->item_name_ar;
       $item->default_sale_price = $request->defaultprice_sale;
       $item->sub_category_id = $request->sub_category;
       $item->type = $request->item_type;
       $item->isTax = $request->tax_type;
+      $item->user_id = auth()->user()->id;
       $item->save();
       $item->code = $item->code + $item->id;
       $item->save();
@@ -120,28 +156,41 @@ class StoreController extends Controller
         $product = new Product();
         $product->item_id = $item->id;
         $product->default_buy_price = $request->defaultprice_purchase;
-        $product->default_store_id = ($request->multi_store)[0];
+        $product->default_store_id = $request->base_store;
         $product->SKU_code = $request->sku_code;
         $product->stock_limit = $request->stock_limit_alarm;
         $product->track_type = $request->stock_tracking;
-        $product->react_material = $request->react_material;
+        $product->react_material_en = $request->react_material_en;
+        $product->react_material_ar = $request->react_material_ar;
         $product->concentrate = $request->concentrate;
         $product->product_type_id = $request->pro_type;
         $product->save();
 
-        foreach ($request->multi_production_date as $key => $value) {
-          if($value != null){
-            $pro_date = new ProductDate();
-            $pro_date->product_id = $product->id;
-            $pro_date->production_date = $value;
-            $pro_date->expire_date = ($request->multi_expire_date)[$key];
-            $pro_date->quantity = ($request->multi_amount)[$key];
-            $pro_date->store_id = ($request->multi_store)[$key];
-            $pro_date->note = ($request->multi_notes)[$key];
-            $pro_date->save();
-          } 
+        if(isset($request->active_multi_val) && $request->active_multi_val == 1){
+          foreach ($request->multi_production_date as $key => $value) {
+            if($value != null){
+              $pro_date = new ProductDate();
+              $pro_date->product_id = $product->id;
+              $pro_date->production_date = $value;
+              $pro_date->expire_date = ($request->multi_expire_date)[$key];
+              $pro_date->quantity = ($request->multi_amount)[$key];
+              $pro_date->cost = ($request->multi_price)[$key];
+              $pro_date->store_id = ($request->multi_store)[$key];
+              $pro_date->note = ($request->multi_notes)[$key];
+              $pro_date->save();
+            } 
+          }
+        }else{
+          $pro_date = new ProductDate();
+          $pro_date->product_id = $product->id;
+          $pro_date->production_date = $request->base_production_date;
+          $pro_date->expire_date = $request->base_expire_date;
+          $pro_date->quantity = $request->base_amount;
+          $pro_date->cost = $request->defaultprice_purchase;
+          $pro_date->store_id = $request->base_store;
+          $pro_date->note = $request->base_note;
+          $pro_date->save();
         }
-      
       }
       Session::flash('success', 'تمت العملية بنجاح!');
       return redirect()->route('productservice');

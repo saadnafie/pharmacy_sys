@@ -6,23 +6,14 @@ use Illuminate\Http\Request;
 
 use App\Models\TreeAccount;
 
-class OwnerController extends Controller
+class FinancialController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function display_account_tree()
     {
         $allaccountslist = TreeAccount::where('account_type', 0)->get();
@@ -37,7 +28,7 @@ class OwnerController extends Controller
 		//$core = json_encode($core2);
 		//return $core;
 		
-        return view('admin.accountstree2',compact('allaccounts', 'allaccountslist', 'core'));
+        return view('admin.financial.accountstree2',compact('allaccounts', 'allaccountslist', 'core'));
     }
 
     public function add_new_accounttree(Request $request)

@@ -37,8 +37,15 @@
 <input type="hidden" class="form-control" name="cus_id" value="{{$cusdetail->id}}">
 <div class="col-md-4">
     <div class="form-group">
-      <label for="email">اسم العميل</label>
-      <input type="text" class="form-control" name="cus_name" value="{{$cusdetail->name}}" required>
+      <label for="email">اسم العميل بالإنجليزي</label>
+      <input type="text" class="form-control" name="cus_name_en" value="{{$cusdetail->name_en}}" required>
+    </div>
+</div>
+
+<div class="col-md-4">
+    <div class="form-group">
+      <label for="email">اسم العميل بالعربي</label>
+      <input type="text" class="form-control" name="cus_name_ar" value="{{$cusdetail->name_ar}}" required>
     </div>
 </div>
 
@@ -90,8 +97,15 @@
 <div id="com_info">
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">اسم الشركة</label>
-      <input type="text" class="form-control" value="{{$cusdetail->company->company_name}}" name="com_name">
+      <label for="pwd">اسم الشركة بالإنجليزي</label>
+      <input type="text" class="form-control" value="{{$cusdetail->company->company_name_en}}" name="com_name_en">
+    </div>
+</div>
+
+<div class="col-md-4">
+    <div class="form-group">
+      <label for="pwd">اسم الشركة بالعربي</label>
+      <input type="text" class="form-control" value="{{$cusdetail->company->company_name_ar}}" name="com_name_ar">
     </div>
 </div>
 

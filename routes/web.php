@@ -38,8 +38,8 @@ Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 //--------------------------------------finance------------------------------
 
 
-Route::get('/accountstree', 'OwnerController@display_account_tree')->name('accountstree');
-Route::post('/add_new_accounttree', 'OwnerController@add_new_accounttree')->name('add_new_accounttree');
+Route::get('/accountstree', 'FinancialController@display_account_tree')->name('accountstree');
+Route::post('/add_new_accounttree', 'FinancialController@add_new_accounttree')->name('add_new_accounttree');
 
 Route::get('dailyentrylist', function () {
     return view('admin/dailyentrylist');

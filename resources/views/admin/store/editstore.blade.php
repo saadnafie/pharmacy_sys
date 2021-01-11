@@ -39,8 +39,13 @@
  <div class="col-sm-4">
 
     <div class="form-group">
-      <label for="email">اسم المستودع</label>
-      <input type="text" class="form-control"  name="store_name" value="{{$stdetail->store_name}}" required>
+      <label for="email">اسم المستودع بالإنجليزي</label>
+      <input type="text" class="form-control"  name="store_name_en" value="{{$stdetail->store_name_en}}" required>
+    </div>
+
+    <div class="form-group">
+      <label for="email">اسم المستودع بالعربي</label>
+      <input type="text" class="form-control"  name="store_name_ar" value="{{$stdetail->store_name_ar}}" required>
     </div>
 
   <div class="form-group">

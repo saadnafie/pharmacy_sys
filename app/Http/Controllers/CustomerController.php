@@ -29,7 +29,8 @@ class CustomerController extends Controller
     public function add_new_customer(Request $request){
       //return auth()->user();
         $customer = new Customer();
-        $customer->name = $request->cus_name;
+        $customer->name_en = $request->cus_name_en;
+        $customer->name_ar = $request->cus_name_ar;
         $customer->phone = $request->cus_phone;
         $customer->email = $request->cus_email;
         $customer->city = $request->cus_city;
@@ -41,7 +42,8 @@ class CustomerController extends Controller
         if($request->cus_type == 1){
           $company = new CustomerCompanyInfo();
           $company->customer_id = $customer->id;
-          $company->company_name = $request->com_name;
+          $company->company_name_en = $request->com_name_en;
+          $company->company_name_ar = $request->com_name_ar;
           $company->credit_limit = $request->com_credit_limit;
           $company->credit_duration = $request->com_credit_duration;
           $company->current_balance = $request->com_current_balance;
@@ -64,17 +66,18 @@ class CustomerController extends Controller
     public function edit_customer(Request $request){
       //return $request;
         $customer = Customer::find($request->cus_id);
-        $customer->name = $request->cus_name;
+        $customer->name_en = $request->cus_name_en;
+        $customer->name_ar = $request->cus_name_ar;
         $customer->phone = $request->cus_phone;
         $customer->email = $request->cus_email;
         $customer->city = $request->cus_city;
         $customer->area = $request->cus_area;
         $customer->address = $request->cus_address;
-        $customer->type = $request->cus_type;
         $customer->save();
-        if($request->cus_type == 1){
+        if($customer->type == 1){
           $company = CustomerCompanyInfo::where('customer_id',$request->cus_id)->first();
-          $company->company_name = $request->com_name;
+          $company->company_name_en = $request->com_name_en;
+          $company->company_name_ar = $request->com_name_ar;
           $company->credit_limit = $request->com_credit_limit;
           $company->credit_duration = $request->com_credit_duration;
           $company->current_balance = $request->com_current_balance;

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App;
 
 class Employee extends Model
 {
@@ -41,7 +42,9 @@ class Employee extends Model
    		return $this->belongsTo('App\Models\PeriodType', 'period_type_id');
 	}
 
-	
+	public function getNameAttribute($value) {
+        return $this->{'name_' . App::getLocale()};
+    }
 
 	
 }

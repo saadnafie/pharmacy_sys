@@ -40,8 +40,15 @@
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="email">اسم المورد</label>
-      <input type="text" class="form-control" name="sup_name" value="{{$supdetail->name}}" required>
+      <label for="email">اسم المورد بالإنجليزي</label>
+      <input type="text" class="form-control" name="sup_name_en" value="{{$supdetail->name_en}}" required>
+    </div>
+</div>
+
+<div class="col-md-4">
+    <div class="form-group">
+      <label for="email">اسم المورد بالعربي</label>
+      <input type="text" class="form-control" name="sup_name_ar" value="{{$supdetail->name_ar}}" required>
     </div>
 </div>
 
@@ -98,8 +105,15 @@
 <div id="com_info">
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">اسم الشركة</label>
-      <input type="text" class="form-control" name="com_name" value="{{$supdetail->company->company_name}}">
+      <label for="pwd">اسم الشركة بالإنجليزي</label>
+      <input type="text" class="form-control" name="com_name_en" value="{{$supdetail->company->company_name_en}}">
+    </div>
+</div>
+
+<div class="col-md-4">
+    <div class="form-group">
+      <label for="pwd">اسم الشركة بالعربي</label>
+      <input type="text" class="form-control" name="com_name_ar" value="{{$supdetail->company->company_name_ar}}">
     </div>
 </div>
 
