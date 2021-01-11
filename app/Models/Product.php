@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App;
 use DB;
 
 class Product extends Model
@@ -10,6 +11,10 @@ class Product extends Model
 	
 	protected $appends =['total_quantity' , 'total_cost' , 'avg_cost'];
 	
+	public function getReactMaterialAttribute($value) {
+        return $this->{'react_material_' . App::getLocale()};
+    }
+
 	public function dates()
 	{
    		return $this->hasMany('App\Models\ProductDate', 'product_id')->with('store');

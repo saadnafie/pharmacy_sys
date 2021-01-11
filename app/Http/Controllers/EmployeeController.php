@@ -128,4 +128,61 @@ class EmployeeController extends Controller
       return redirect()->back();
     }
 
+    ///////////////////////////// Org //////////////////////////////////
+
+    public function show_all_org(){
+      $departments = Department::all();
+      $job_levels = JobLevel::all();
+      $job_types = JobType::all();
+      return view('admin.employee.manageemployee',compact('departments','job_levels','job_types'));
+    }
+
+    public function add_new_department(Request $request){
+      $department = new Department();
+      $department->$department_en = $request->department_en;
+      $department->$department_ar = $request->department_ar;
+      $department->save();
+
+      Session::flash('success', 'تمت العملية بنجاح!');
+      return redirect()->back();
+    }
+
+    public function department_activation($id , $status){
+      Department::find($id)->update(['isActive' => $status]);
+      Session::flash('success', 'تمت العملية بنجاح!');
+      return redirect()->back();
+    }
+
+    public function add_new_job_level(Request $request){
+      $job_level = new JobLevel();
+      $job_level->level_en = $request->level_en;
+      $job_level->level_ar = $request->level_ar;
+      $job_level->save();
+
+      Session::flash('success', 'تمت العملية بنجاح!');
+      return redirect()->back();
+    }
+
+    public function job_level_activation($id , $status){
+      JobLevel::find($id)->update(['isActive' => $status]);
+      Session::flash('success', 'تمت العملية بنجاح!');
+      return redirect()->back();
+    }
+
+    public function add_new_job_type(Request $request){
+      $job_type = new JobType();
+      $job_type->type_en = $request->type_en;
+      $job_type->type_ar = $request->type_ar;
+      $job_type->save();
+
+      Session::flash('success', 'تمت العملية بنجاح!');
+      return redirect()->back();
+    }
+
+    public function job_type_activation($id , $status){
+      JobType::find($id)->update(['isActive' => $status]);
+      Session::flash('success', 'تمت العملية بنجاح!');
+      return redirect()->back();
+    }
+
 }

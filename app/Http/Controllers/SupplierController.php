@@ -28,7 +28,8 @@ class SupplierController extends Controller
 
     public function add_new_supplier(Request $request){
         $supplier = new Supplier();
-        $supplier->name = $request->sup_name;
+        $supplier->name_en = $request->sup_name_en;
+        $supplier->name_ar = $request->sup_name_ar;
         $supplier->phone = $request->sup_phone;
         $supplier->email = $request->sup_email;
         $supplier->city = $request->sup_city;
@@ -40,7 +41,8 @@ class SupplierController extends Controller
         if($request->sup_type == 1){
           $company = new SupplierCompanyInfo();
           $company->supplier_id = $supplier->id;
-          $company->company_name = $request->com_name;
+          $company->company_name_en = $request->com_name_en;
+          $company->company_name_ar = $request->com_name_ar;
           $company->credit_limit = $request->com_credit_limit;
           $company->credit_duration = $request->com_credit_duration;
           $company->current_balance = $request->com_current_balance;
@@ -62,7 +64,8 @@ class SupplierController extends Controller
 
     public function edit_supplier(Request $request){
         $supplier = Supplier::find($request->sup_id);
-        $supplier->name = $request->sup_name;
+        $supplier->name_en = $request->sup_name_en;
+        $supplier->name_ar = $request->sup_name_ar;
         $supplier->phone = $request->sup_phone;
         $supplier->email = $request->sup_email;
         $supplier->city = $request->sup_city;
@@ -71,7 +74,8 @@ class SupplierController extends Controller
         $supplier->save();
         if($request->sup_type == 1){
           $company = SupplierCompanyInfo::where('supplier_id',$request->sup_id)->first();
-          $company->company_name = $request->com_name;
+          $company->company_name_en = $request->com_name_en;
+          $company->company_name_ar = $request->com_name_ar;
           $company->credit_limit = $request->com_credit_limit;
           $company->credit_duration = $request->com_credit_duration;
           $company->current_balance = $request->com_current_balance;

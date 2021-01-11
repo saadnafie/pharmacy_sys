@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App;
 
 class Customer extends Model
 {
@@ -26,4 +27,8 @@ class Customer extends Model
 	{
    		return $this->belongsTo('App\Models\Activation', 'isActive');
 	}
+
+	public function getNameAttribute($value) {
+        return $this->{'name_' . App::getLocale()};
+    }
 }

@@ -161,7 +161,7 @@
 <div class="col-sm-4">
     <div class="form-group">
       <label for="email">المخزن الافتراضى</label>
-      <select class="form-control selectpicker" name="multi_store[]" data-live-search="true">
+      <select class="form-control selectpicker" name="base_store" data-live-search="true">
         <option value="-1" disabled selected>اختر المخزن الإفتراضي</option>
         @foreach($main_stores as $value)
         <option value="{{$value->id}}">{{$value->store_name}}</option>
@@ -307,7 +307,6 @@
                 <td><button type="button" class="btn btn-danger remove-tr"><i class="fa fa-trash"></i></button></td>  
             </tr>  
         </table> 
-		
 		
 </div>
 </div>
