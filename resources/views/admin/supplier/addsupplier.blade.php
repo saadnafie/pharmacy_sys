@@ -94,7 +94,7 @@ display:none;
     </div>
 </div>
 
-<div class="col-md-4">
+<div class="col-md-12">
         <div class="form-group">
       <label for="pwd">نوع العميل</label>
         <div class="radio">
@@ -144,7 +144,7 @@ display:none;
 </div>
 </div>
 
-<div class="col-md-4">
+<div class="col-md-12">
     <button type="submit" class="btn btn-primary">حفظ</button>
     </div>
 

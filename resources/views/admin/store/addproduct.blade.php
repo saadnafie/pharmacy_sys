@@ -67,26 +67,45 @@
  
  <div class="col-sm-4">
     <div class="form-group">
-      <label for="email">اسم الصنف</label>
-      <input type="text" class="form-control"  name="item_name" required>
-    </div>
+      <label for="email"> اسم الصنف (en)</label>
+      <input type="text" class="form-control"  name="item_name_en" value="{{ old('item_name_en') }}" required>
+    
+	 @error('item_name_en')
+    <div class="alert alert-danger">{{ $message }}</div>
+   @enderror
+	</div>
+  </div>
+  
+   <div class="col-sm-4">
+    <div class="form-group">
+      <label for="email"> اسم الصنف (ar)</label>
+      <input type="text" class="form-control"  name="item_name_ar" value="{{ old('item_name_ar') }}" required>
+    
+		   @error('item_name_ar')
+    <div class="alert alert-danger">{{ $message }}</div>
+   @enderror
+	</div>
   </div>
 
 <div class="col-sm-4">
 <div class="form-group">
   <label for="email">نوع الضريبة </label>
-<select class="form-control"  name="tax_type">
-        <option value="1">خاضع</option>
-        <option value="0">غير خاضع</option>
-      </select>
+    <div class="form-control">
+  <label><input type="radio" name="tax_type" value="1"  checked>&nbsp;&nbsp;&nbsp;خاضع</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <label><input type="radio" name="tax_type" value="0" >&nbsp;&nbsp;&nbsp;غير خاضع</label>
+</div>
 </div>
 </div>
 
 <div class="col-sm-4">
     <div class="form-group">
       <label for="email">سعر البيع الافتراضى</label>
-      <input type="text" class="form-control" name="defaultprice_sale" required>
-    </div>
+      <input type="text" class="form-control" name="defaultprice_sale" value="{{ old('defaultprice_sale') }}" required>
+    
+	   @error('defaultprice_sale')
+    <div class="alert alert-danger">{{ $message }}</div>
+   @enderror
+	</div>
 </div>
 
 
@@ -125,7 +144,12 @@
      if (d.length == 0) {
       //document.getElementById("subcat").innerHTML = "<option></option>";
       }else {
-        var name = d.map(({category}) => category);
+		   var locale = '{{ config('app.locale') }}';
+		   if(locale == 'ar')
+        var name = d.map(({category_ar}) => category_ar);
+		else
+		var name = d.map(({category_en}) => category_en);
+		
         var id = d.map(({id}) => id);
         for (x in name) {
           catOptions += "<option value ='" + id[x] +"'>" + name[x] + "</option>";
@@ -143,26 +167,42 @@
 <div class="col-sm-4">
 <div class="form-group">
    <label for="email">المخزون الافتتاحى</label>
-      <input type="text" class="form-control" name="base_amount" >
+      <input type="text" class="form-control" name="base_amount" value="{{ old('base_amount') }}" >
+	  
+	   @error('base_amount')
+    <div class="alert alert-danger">{{ $message }}</div>
+   @enderror
     </div>
   </div> 
 
 <div class="col-sm-4">
 <div class="form-group">
-  <label for="email">المادة الفعالة</label>
-      <input type="text" class="form-control" name="react_material" >
-    </div>
+  <label for="email">المادة الفعالة (en)</label>
+      <input type="text" class="form-control" name="react_material_en" value="{{ old('react_material_en') }}">
+    @error('react_material_en')
+    <div class="alert alert-danger">{{ $message }}</div>
+   @enderror
+	
+	</div>
 </div>
 
 
-
+<div class="col-sm-4">
+<div class="form-group">
+  <label for="email">المادة الفعالة (ar)</label>
+      <input type="text" class="form-control" name="react_material_ar" value="{{ old('react_material_ar') }}">
+    
+	@error('react_material_ar')
+    <div class="alert alert-danger">{{ $message }}</div>
+   @enderror
+	</div>
+</div>
 
 
 <div class="col-sm-4">
     <div class="form-group">
       <label for="email">المخزن الافتراضى</label>
       <select class="form-control selectpicker" name="base_store" data-live-search="true">
-        <option value="-1" disabled selected>اختر المخزن الإفتراضي</option>
         @foreach($main_stores as $value)
         <option value="{{$value->id}}">{{$value->store_name}}</option>
         @endforeach
@@ -176,24 +216,36 @@
 <div class="col-sm-4">
 <div class="form-group">
    <label for="email">حد تنيه انتهاء المخزون</label>
-      <input type="text" class="form-control" name="stock_limit_alarm" >
-    </div>
+      <input type="text" class="form-control" name="stock_limit_alarm" value="{{ old('stock_limit_alarm') }}">
+    
+	@error('stock_limit_alarm')
+    <div class="alert alert-danger">{{ $message }}</div>
+   @enderror
+	</div>
 </div>
 
 
 <div class="col-sm-4">
 <div class="form-group">
    <label for="email">التركيز</label>
-      <input type="text" class="form-control" name="concentrate" >
-    </div>
+      <input type="text" class="form-control @error('concentrate') is-invalid @enderror" name="concentrate" value="{{ old('concentrate') }}">
+     @error('concentrate')
+    <div class="alert alert-danger">{{ $message }}</div>
+   @enderror
+	
+	</div>
+	   
 </div>
 
 
  <div class="col-sm-4">
     <div class="form-group">
        <label for="email">سعر الشراء الافتراضى</label>
-      <input type="text" class="form-control" name="defaultprice_purchase" >
-    </div>
+      <input type="text" class="form-control" name="defaultprice_purchase" value="{{ old('defaultprice_purchase') }}">
+    @error('defaultprice_purchase')
+     <div class="alert alert-danger">{{ $message }}</div>
+   @enderror
+	</div>
 </div>
 
 
@@ -202,50 +254,62 @@
 <div class="col-sm-4">
 <div class="form-group">
    <label for="email">sku رمز المصنع </label>
-      <input type="text" class="form-control" name="sku_code" >
+      <input type="text" class="form-control" name="sku_code" value="{{ old('sku_code') }}">
+	   @error('sku_code')
+    <div class="alert alert-danger">{{ $message }}</div>
+   @enderror
     </div>
 </div>
-
-
-<div class="col-sm-4">
-<div class="form-group">
-  <label for="email">نوع تتبع  المخزون</label>
-      <select class="form-control"  name="stock_tracking" >
-        <option disabled selected>اختر نوع التتبع</option>
-        <option value="0">التاريخ</option>
-        <option value="1">الكمية</option>
-      </select>
-    </div>
-</div>
-
 
 <div class="col-sm-4">
 <div class="form-group">
   <label for="email">نوع المنتج</label>
       <select class="form-control"  name="pro_type">
-        <option disabled selected>اختر نوع المنتج</option>
         @foreach($pro_types as $value)
-          <option value="{{$value->id}}">{{$value->type}}</option>
+          <option value="{{$value->id}}" {{ (old('pro_type') == $value->id) ? 'selected' : '' }}>{{$value->type}}</option>
         @endforeach
       </select>
     </div>
 </div>
+
+<div class="col-sm-4">
+<div class="form-group">
+  <label for="email">نوع تتبع  المخزون</label><br>
+  <input type="radio"  name="stock_tracking" value="0"  {{ (old('stock_tracking') == 0) ? 'checked' : '' }}>&nbsp;&nbsp;&nbsp;التاريخ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <input type="radio"  name="stock_tracking" value="1" {{ (old('stock_tracking') == 1) ? 'checked' : '' }}>&nbsp;&nbsp;&nbsp;الكمية
+@error('stock_tracking')
+    <div class="alert alert-danger">{{ $message }}</div>
+   @enderror
+</div>
+</div>
+
+
 
 
 <div id="if_multi_date">
  <div class="col-sm-4">
 <div class="form-group">
   <label for="email">تاريخ الانتاج</label>
-      <input type="date" class="form-control" name="base_production_date" >
-    </div>
+      <input type="date" class="form-control" name="base_production_date" value="{{ old('base_production_date') }}" >
+   
+	   @error('base_production_date')
+    <div class="alert alert-danger">{{ $message }}</div>
+   @enderror
+
+   </div>
  </div>
 
 
  <div class="col-sm-4">
     <div class="form-group">
 	  <label for="email">تاريخ الانتهاء</label>
-      <input type="date" class="form-control" name="base_expire_date" >
-    </div>
+      <input type="date" class="form-control" name="base_expire_date" value="{{ old('base_expire_date') }}">
+    
+	
+	   @error('base_expire_date')
+    <div class="alert alert-danger">{{ $message }}</div>
+   @enderror
+	</div>
  </div>
 
 
@@ -253,7 +317,7 @@
 <div class="col-sm-4">
 <div class="form-group">
   <label for="email">ملاحظات</label>
-      <input type="text" class="form-control" name="base_note" >
+      <input type="text" class="form-control" name="base_note" value="{{ old('base_note') }}">
     </div>
  </div>
 </div>
@@ -277,7 +341,9 @@
 
 <div class="row">
  <div class="col-sm-12">
-<br><button type="button" name="add" id="add" class="btn btn-success"><i class="fa fa-plus"></i></button><br><br>
+<br><button type="button" name="add" id="add" class="btn btn-success" ><i class="fa fa-plus"></i></button><br><br>
+
+
 
         <table class="table table-bordered table-striped" id="dynamicTable">  
             <tr>
@@ -289,23 +355,25 @@
 				<th>ملاحظات</th>
 				<th>حذف</th>
             </tr>
-            <tr>  
-                <td>
-                  <select name="multi_store[]"  class="form-control selectpicker"  data-live-search="true">
-                    <option value="-1" disabled selected>اختر المخزن</option>
+		
+				<tr>  
+					<td>
+					  <select name="multi_store[]"  class="form-control my-select"  data-live-search="true">
+						<option value="-1" disabled selected>اختر المخزن</option>
 
-                    @foreach($stores as $value)
-                    <option value="{{$value->id}}">{{$value->store_name}}</option>
-                    @endforeach
-                  </select>  
-                </td>  
-                <td><input type="text" name="multi_amount[]"  class="form-control" /></td>  
-				<td><input type="text" name="multi_price[]"  class="form-control" /></td>  
-                <td><input type="date" name="multi_production_date[]"  class="form-control" /></td>  
-				 <td><input type="date" name="multi_expire_date[]"  class="form-control" /></td>  
-                <td><input type="text" name="multi_notes[]"  class="form-control" /></td> 
-                <td><button type="button" class="btn btn-danger remove-tr"><i class="fa fa-trash"></i></button></td>  
-            </tr>  
+						@foreach($stores as $value)
+						<option value="{{$value->id}}">{{$value->store_name}}</option>
+						@endforeach
+					  </select>  
+					</td>  
+					<td><input type="text" name="multi_amount[]"  class="form-control" /></td>  
+					<td><input type="text" name="multi_price[]"  class="form-control" /></td>  
+					<td><input type="date" name="multi_production_date[]"  class="form-control" /></td>  
+					 <td><input type="date" name="multi_expire_date[]"  class="form-control" /></td>  
+					<td><input type="text" name="multi_notes[]"  class="form-control" /></td> 
+					<td><button type="button" class="btn btn-danger remove-tr"><i class="fa fa-trash"></i></button></td>  
+				</tr> 
+			
         </table> 
 		
 </div>
@@ -315,6 +383,7 @@
 
 <div class="col-sm-12">
 <button type="submit" class="btn btn-primary">حفظ</button>
+
 </div>
 
 </form>
@@ -333,8 +402,12 @@
             </div>
         </div>
 		
+		
+		
+		
 <script>
 
+$('.my-select').selectpicker();
 
     function service_fields_disable(){
 document.getElementById("item_more").style.display = "block";
@@ -370,8 +443,10 @@ function enable_disable_multival(){
    
         ++i;
    
-        $("#dynamicTable").append('<tr><td><select name="multi_store[]"  class="form-control selectpicker"  data-live-search="true"><option value="-1">اختر المخزن</option><option value="2">1 المخزن</option></select> </td><td><input type="text" name="multi_amount[]"  class="form-control" /></td><td><input type="text" name="multi_price[]"  class="form-control" /></td><td><input type="date" name="multi_production_date[]"  class="form-control" /></td><td><input type="date" name="multi_expire_date[]"  class="form-control" /></td><td><input type="text" name="multi_notes[]"  class="form-control" /></td><td><button type="button" class="btn btn-danger remove-tr"><i class="fa fa-trash"></i></button></td></tr>');
-    });
+	$("#dynamicTable").append('<tr><td><select name="multi_store[]"  class="form-control my-select" data-live-search="true"> <option value="-1">اختر المخزن</option><?php foreach($stores as $value){ ?><option value="{{ $value->id}}">{{ $value->store_name}}</option><?php } ?></select> </td><td><input type="text" name="multi_amount[]"  class="form-control" /></td><td><input type="text" name="multi_price[]"  class="form-control" /></td><td><input type="date" name="multi_production_date[]"  class="form-control" /></td><td><input type="date" name="multi_expire_date[]"  class="form-control" /></td><td><input type="text" name="multi_notes[]"  class="form-control" /></td><td><button type="button" class="btn btn-danger remove-tr"><i class="fa fa-trash"></i></button></td></tr>');
+        $('.my-select').selectpicker();
+		$('.my-select').selectpicker('refresh');
+	});
    
     $(document).on('click', '.remove-tr', function(){  
          $(this).parents('tr').remove();
