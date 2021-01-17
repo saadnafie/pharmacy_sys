@@ -81,7 +81,7 @@
                                         <ul class="breadcome-menu">
                                             <!--<li><a href="#">Home</a> <span class="bread-slash">/</span>
                                             </li>-->
-                                            <li><span class="bread-blod">{{ __('accounttree.account_tree') }}1111</span>
+                                            <li><span class="bread-blod">{{ __('accounttree.account_tree') }}</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -151,11 +151,20 @@
     </select>
   </div>
   
+  <div class="form-group">
+    <label for="pwd">دائن / مدين</label>
+    <select class="form-control" name="credit_debit">
+        <option value="0">دائن</option>
+         <option value="1">مدين</option>
+    </select>
+  </div>
+  
     <div class="form-group">
     <label for="pwd">{{ __('accounttree.final_account') }}</label>
     <select class="form-control" name="acc_parent">
-       <option value="0">-------</option>
-	   <option value="0">-------</option>
+       <option value="0">ميزان مراجعة</option>
+	   <option value="0">قائمة الدخل</option>
+	   <option value="0">ارباح وخسارة</option>
     </select>
   </div>
 
