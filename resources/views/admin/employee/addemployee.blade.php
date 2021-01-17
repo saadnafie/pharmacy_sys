@@ -34,11 +34,13 @@
 <div class="row">
 
 <div class="col-md-12">
+  <input type="hidden" name="dept_name" id="department_id">
     <div class="form-group">
       <label for="email">الادارة التابع لها</label>
-      <select class="form-control"  name="dept_name">
-        @foreach($department as $value)
-        <option value="{{$value->id}}">{{$value->department}}</option>
+      <select class="form-control" onChange="department_val()" id="department">
+        <option value="-1" disabled selected>اختر الإدارة</option>
+        @foreach($department as $index=>$value)
+        <option value="{{$index}}">{{$value->department}}</option>
         @endforeach
       </select>
     </div>
@@ -152,13 +154,11 @@
     </div>
 </div>
 
+
 <div class="col-md-4">
     <div class="form-group">
       <label for="pwd">الوظيفة</label>
-        <select class="form-control" name="emp_jop">
-        @foreach($job_type as $value)
-        <option value="{{$value->id}}">{{$value->type}}</option>
-        @endforeach
+        <select class="form-control" name="emp_jop" onChange="job_val()" id="jobs">
       </select>
     </div>
 </div>
@@ -166,10 +166,7 @@
 <div class="col-md-4">
     <div class="form-group">
       <label for="pwd">المستوي الوظيفي</label>
-      <select class="form-control" name="jop_level">
-        @foreach($job_level as $value)
-        <option value="{{$value->id}}">{{$value->level}}</option>
-        @endforeach
+      <select class="form-control" name="jop_level" id="levels">
       </select>
     </div>
 </div>
@@ -184,6 +181,8 @@
       </select>
     </div>
 </div>
+
+
 
 <div class="col-md-4">
     <div class="form-group">
@@ -248,6 +247,67 @@
 
             </div>
         </div>
+
+
+
+<script>
+  function department_val() {
+
+    var z = <?php echo $department; ?>;
+    var jv = document.getElementById("department").value;
+    document.getElementById("department_id").value = z[jv].id;
+    //document.getElementById("lis_val").value = d;
+    var d = z[jv].jobs;
+    //console.log(z[d].jobs);
+
+    var catOptions = "";
+    catOptions += "<option value='' disabled selected=''>إختر الوظيفة</option>";
+     if (d.length == 0) {
+      //document.getElementById("subcat").innerHTML = "<option></option>";
+      }else {
+       var locale = '{{ config('app.locale') }}';
+       if(locale == 'ar')
+        var name = d.map(({job_ar}) => job_ar);
+    else
+    var name = d.map(({job_en}) => job_en);
+        console.log(name);
+        var id = d.map(({levels}) => levels);
+        for (x in name) {
+          var y = id[x];
+          catOptions += "<option value ='"+JSON.stringify(y)+"'>" + name[x] + "</option>";
+          //console.log("ddd",y);
+        }
+        
+      }
+      document.getElementById("jobs").innerHTML = catOptions;
+  }
+
+  function job_val() {
+
+    var d = JSON.parse(document.getElementById("jobs").value);
+    //document.getElementById("lis_val").value = d;
+    //console.log(d);
+
+    var catOptions = "";
+    catOptions += "<option value='' disabled selected=''>إختر المستوى الوظيفي</option>";
+     if (d.length == 0) {
+      //document.getElementById("subcat").innerHTML = "<option></option>";
+      }else {
+       var locale = '{{ config('app.locale') }}';
+       if(locale == 'ar')
+          var name = d.map(({job_ar}) => job_ar);
+       else
+          var name = d.map(({job_en}) => job_en);
+        console.log(name);
+        var id = d.map(({id}) => id);
+        for (x in name) {
+          catOptions += "<option value ='" + id[x] +"'>" + name[x] + "</option>";
+        }
+        //console.log("ddd",d);
+      }
+      document.getElementById("levels").innerHTML = catOptions;
+  }
+</script>
 
 
     @endsection

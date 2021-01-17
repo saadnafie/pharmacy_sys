@@ -157,14 +157,14 @@
     </div>
 </div>-->
 
-<div class="col-md-4">
+<!--<div class="col-md-4">
     <div class="form-group">
       <label for="pwd">الوظيفة</label>
         <select class="form-control" name="emp_jop">
         @foreach($job_type as $value)
         <option value="{{$value->id}}"
           {{ ($value->id == $empdetail->job_id) ? 'selected':'' }}>
-          {{$value->type}}</option>
+          {{$value->job}}</option>
         @endforeach
       </select>
     </div>
@@ -174,16 +174,16 @@
     <div class="form-group">
       <label for="pwd">المستوي الوظيفي</label>
       <select class="form-control" name="jop_level">
-        @foreach($job_level as $value)
+        @foreach($cur_levels as $value)
         <option value="{{$value->id}}"
-          {{ ($value->id == $empdetail->job_level_id) ? 'selected':'' }}>
-          {{$value->level}}</option>
+          {{ ($value->id == $empdetail->job_id) ? 'selected':'' }}>
+          {{$value->job}}</option>
         @endforeach
       </select>
     </div>
 </div>
 
-<!--<div class="col-md-4">
+<div class="col-md-4">
     <div class="form-group">
       <label for="email">نوع الدوام</label>
      <select class="form-control" name="period_type">

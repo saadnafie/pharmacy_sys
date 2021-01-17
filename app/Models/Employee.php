@@ -19,12 +19,7 @@ class Employee extends Model
 
 	public function job()
 	{
-   		return $this->belongsTo('App\Models\JobType', 'job_id');
-	}
-
-	public function job_level()
-	{
-   		return $this->belongsTo('App\Models\JobLevel', 'job_level_id');
+   		return $this->belongsTo('App\Models\Job', 'job_id')->with('main')->with('levels');
 	}
 
 	public function activation()
