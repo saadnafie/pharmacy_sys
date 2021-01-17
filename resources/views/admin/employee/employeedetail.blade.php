@@ -152,14 +152,14 @@
 <div class="col-md-4">
     <div class="form-group">
       <label for="pwd">الوظيفة</label>
-        <input type="text" class="form-control"   value="{{$empdetail->job->type}}" disabled>
+        <input type="text" class="form-control"   value="{{$empdetail->job->main->job}}" disabled>
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
       <label for="pwd">المستوي الوظيفي</label>
-      <input type="text" class="form-control"   value="{{$empdetail->job_level->level}}" disabled>
+      <input type="text" class="form-control"   value="{{$empdetail->job->job}}" disabled>
     </div>
 </div>
 

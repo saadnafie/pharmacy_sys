@@ -9,11 +9,11 @@ use Session;
 use App\Models\Employee;
 use App\Models\Nationality;
 use App\Models\Department;
-use App\Models\JobType;
-use App\Models\JobLevel;
+use App\Models\Job;
 use App\Models\EmployeeActivation;
 use App\Models\ContractType;
 use App\Models\PeriodType;
+use App\Models\Month;
 
 class EmployeeController extends Controller
 {
@@ -23,20 +23,20 @@ class EmployeeController extends Controller
     }
 
     public function show_all_employee(){
-      $employees = Employee::with('nationality')->with('department')->with('job')->with('job_level')->with('activation')->with('contract_type')->with('period_type')->get();
+      $employees = Employee::with('nationality')->with('department')->with('job')->with('activation')->with('contract_type')->with('period_type')->get();
       //dd($employees);
       return view('admin.employee.manageemployee',compact('employees'));
     }
 
     public function add_employee_page(){
       $nationality = Nationality::all();
-      $department = Department::all();
-      $job_type = JobType::all();
-      $job_level = JobLevel::all();
+      $department = Department::with('jobs')->get();
+      $job_type = Job::all();
       $activation = EmployeeActivation::all();
       $contract_type = ContractType::all();
       $period_type = PeriodType::all();
-      return view('admin.employee.addemployee' , compact('nationality','department','job_type','job_level','activation','contract_type','period_type'));
+      //return $department;
+      return view('admin.employee.addemployee' , compact('nationality','department','job_type','activation','contract_type','period_type'));
     }
 
     public function add_new_employee(Request $request){
@@ -57,7 +57,6 @@ class EmployeeController extends Controller
       $employee->hiring_date = $request->hiring_date;
       $employee->end_date = $request->hiring_deadline;
       $employee->job_id = $request->emp_jop;
-      $employee->job_level_id = $request->jop_level;
       $employee->contract_type_id = $request->contract_type;
       $employee->period_type_id = $request->period_type;
       $employee->sys_lang = $request->sys_lang;
@@ -87,20 +86,22 @@ class EmployeeController extends Controller
     }
 
     public function show_employee_detail($id){
-      $empdetail = Employee::where('id',$id)->with('nationality')->with('department')->with('job')->with('job_level')->with('activation')->with('contract_type')->with('period_type')->first();
+      $empdetail = Employee::where('id',$id)->with('nationality')->with('department')->with('job')->with('activation')->with('contract_type')->with('period_type')->first();
+      //return $empdetail;
       return view('admin.employee.employeedetail', compact('empdetail'));
     }
 
     public function edit_employee_page($id){
       $nationality = Nationality::all();
       $department = Department::all();
-      $job_type = JobType::all();
-      $job_level = JobLevel::all();
+      $job_type = Job::with('levels')->whereNull('parent_id')->get();
       $activation = EmployeeActivation::all();
       $contract_type = ContractType::all();
       $period_type = PeriodType::all();
-      $empdetail = Employee::where('id',$id)->with('nationality')->with('department')->with('job')->with('job_level')->first();
-      return view('admin.employee.editemployee',compact('empdetail','nationality','department','job_type','job_level','activation','contract_type','period_type'));
+      $empdetail = Employee::where('id',$id)->with('nationality')->with('department')->with('job')->first();
+      $cur_levels = Job::where('parent_id',$empdetail->job->main->id)->get();
+
+      return view('admin.employee.editemployee',compact('empdetail','nationality','department','job_type','cur_levels','activation','contract_type','period_type'));
     }
 
     public function edit_employee(Request $request){
@@ -114,8 +115,6 @@ class EmployeeController extends Controller
       $employee->job_phone = $request->emp_workphone;
       $employee->end_date = $request->hiring_deadline;
       $employee->job_id = $request->emp_jop;
-      $employee->job_level_id = $request->jop_level;
-      //$employee->sys_lang = $request->sys_lang;
       $employee->save();
 
       Session::flash('success', 'تمت العملية بنجاح!');
@@ -132,15 +131,19 @@ class EmployeeController extends Controller
 
     public function show_all_org(){
       $departments = Department::all();
-      $job_levels = JobLevel::all();
-      $job_types = JobType::all();
-      return view('admin.employee.manageemployee',compact('departments','job_levels','job_types'));
+      $job_types = Job::all();
+      $months = Month::all();
+      return view('admin.employee.manageemployee',compact('departments','job_types','months'));
     }
 
     public function add_new_department(Request $request){
       $department = new Department();
       $department->$department_en = $request->department_en;
       $department->$department_ar = $request->department_ar;
+      if($request->description != '')
+        $department->description = $request->description;
+      $department->finance_date = $request->finance_date;
+      $department->finance_month = $request->finance_month;
       $department->save();
 
       Session::flash('success', 'تمت العملية بنجاح!');
@@ -153,33 +156,22 @@ class EmployeeController extends Controller
       return redirect()->back();
     }
 
-    public function add_new_job_level(Request $request){
-      $job_level = new JobLevel();
-      $job_level->level_en = $request->level_en;
-      $job_level->level_ar = $request->level_ar;
-      $job_level->save();
-
-      Session::flash('success', 'تمت العملية بنجاح!');
-      return redirect()->back();
-    }
-
-    public function job_level_activation($id , $status){
-      JobLevel::find($id)->update(['isActive' => $status]);
-      Session::flash('success', 'تمت العملية بنجاح!');
-      return redirect()->back();
-    }
-
-    public function add_new_job_type(Request $request){
+    public function add_new_job(Request $request){
       $job_type = new JobType();
       $job_type->type_en = $request->type_en;
       $job_type->type_ar = $request->type_ar;
+      $job_type->department_id = $request->department_id;
+      if(isset($request->description))
+        $job_type->description = $request->description;
+      if(isset($request->parent_id))
+        $job_type->parent_id = $request->parent_id;
       $job_type->save();
 
       Session::flash('success', 'تمت العملية بنجاح!');
       return redirect()->back();
     }
 
-    public function job_type_activation($id , $status){
+    public function job_activation($id , $status){
       JobType::find($id)->update(['isActive' => $status]);
       Session::flash('success', 'تمت العملية بنجاح!');
       return redirect()->back();

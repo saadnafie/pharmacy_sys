@@ -109,9 +109,9 @@ class StoreController extends Controller
         $this->validate($request, [
           'sub_category' => 'required',
         ]);
-		}else if(($request->item_type == 1 || $request->item_type == 2) && (isset($request->active_multi_val) && $request->active_multi_val == 1)){
+		  }else if(($request->item_type == 1 || $request->item_type == 2) && (isset($request->active_multi_val) && $request->active_multi_val == 1)){
         $this->validate($request, [
-		  'sub_category' => 'required',
+		      'sub_category' => 'required',
           'defaultprice_purchase' => 'required',
           'base_store' => 'required',
           'sku_code' => 'required|unique:products,SKU_code',
@@ -123,52 +123,52 @@ class StoreController extends Controller
           'base_amount' => 'required',
           'defaultprice_purchase' => 'required',
 		  
-		  'multi_production_date' => 'required|min:1',
-            'multi_expire_date' => 'required',
-            'multi_amount' => 'required',
-            'multi_price' => 'required',
-            'multi_store' => 'required',
+	        'multi_production_date' => 'required|min:1',
+          'multi_expire_date' => 'required',
+          'multi_amount' => 'required',
+          'multi_price' => 'required',
+          'multi_store' => 'required',
         ],[
-		'defaultprice_purchase.required' => 'this field is required',
-		'base_store.required' => 'this field is required',
-		'sku_code.required' => 'this field is required',
-		'stock_limit_alarm.required' => 'this field is required',
-		'react_material_en.required' => 'this field is required',
-		'react_material_ar.required' => 'this field is required',
-		'concentrate.required' => 'this field is required',
-		'pro_type.required' => 'this field is required',
-		'base_amount.required' => 'this field is required',
-		'defaultprice_purchase.required' => 'this field is required',
-		]);
-		
-        }else{
-          $this->validate($request, [
-		  'sub_category' => 'required',
-          'defaultprice_purchase' => 'required',
-          'base_store' => 'required',
-          'sku_code' => 'required|unique:products,SKU_code',
-          'stock_limit_alarm' => 'required',
-          'react_material_en' => 'required',
-          'react_material_ar' => 'required',
-          'concentrate' => 'required',
-          'pro_type' => 'required',
-          'base_amount' => 'required',
-          'defaultprice_purchase' => 'required',
-		  
-            'base_production_date' => 'required',
-            'base_expire_date' => 'required',
-          ],[
-		'defaultprice_purchase.required' => 'this field is required',
-		'base_store.required' => 'this field is required',
-		'sku_code.required' => 'this field is required',
-		'stock_limit_alarm.required' => 'this field is required',
-		'react_material_en.required' => 'this field is required',
-		'react_material_ar.required' => 'this field is required',
-		'concentrate.required' => 'this field is required',
-		'pro_type.required' => 'this field is required',
-		'base_amount.required' => 'this field is required',
-		'defaultprice_purchase.required' => 'this field is required',
-		]);
+      		'defaultprice_purchase.required' => 'this field is required',
+      		'base_store.required' => 'this field is required',
+      		'sku_code.required' => 'this field is required',
+      		'stock_limit_alarm.required' => 'this field is required',
+      		'react_material_en.required' => 'this field is required',
+      		'react_material_ar.required' => 'this field is required',
+      		'concentrate.required' => 'this field is required',
+      		'pro_type.required' => 'this field is required',
+      		'base_amount.required' => 'this field is required',
+      		'defaultprice_purchase.required' => 'this field is required',
+      		]);
+      		
+              }else{
+                $this->validate($request, [
+      		  'sub_category' => 'required',
+                'defaultprice_purchase' => 'required',
+                'base_store' => 'required',
+                'sku_code' => 'required|unique:products,SKU_code',
+                'stock_limit_alarm' => 'required',
+                'react_material_en' => 'required',
+                'react_material_ar' => 'required',
+                'concentrate' => 'required',
+                'pro_type' => 'required',
+                'base_amount' => 'required',
+                'defaultprice_purchase' => 'required',
+      		  
+                  'base_production_date' => 'required',
+                  'base_expire_date' => 'required',
+                ],[
+      		'defaultprice_purchase.required' => 'this field is required',
+      		'base_store.required' => 'this field is required',
+      		'sku_code.required' => 'this field is required',
+      		'stock_limit_alarm.required' => 'this field is required',
+      		'react_material_en.required' => 'this field is required',
+      		'react_material_ar.required' => 'this field is required',
+      		'concentrate.required' => 'this field is required',
+      		'pro_type.required' => 'this field is required',
+      		'base_amount.required' => 'this field is required',
+      		'defaultprice_purchase.required' => 'this field is required',
+		  ]);
         
       }
 
