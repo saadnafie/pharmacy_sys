@@ -131,19 +131,21 @@ class EmployeeController extends Controller
 
     public function show_all_org(){
       $departments = Department::all();
-      $job_types = Job::all();
+      $jobs = Job::whereNull('parent_id')->with('department')->get();
+      $levels = Job::whereNotNull('parent_id')->with('main')->get();
       $months = Month::all();
-      return view('admin.employee.manageemployee',compact('departments','job_types','months'));
+      return view('admin.employee.orgstructure',compact('departments','jobs','levels','months'));
     }
 
     public function add_new_department(Request $request){
       $department = new Department();
-      $department->$department_en = $request->department_en;
-      $department->$department_ar = $request->department_ar;
-      if($request->description != '')
-        $department->description = $request->description;
-      $department->finance_date = $request->finance_date;
-      $department->finance_month = $request->finance_month;
+      $department->department_en = $request->dept_name_en;
+      $department->department_ar = $request->dept_name_ar;
+      if($request->dept_desc != '')
+        $department->description = $request->dept_desc;
+      $department->finance_date = $request->day_val;
+      $department->finance_month = $request->month_val;
+      $department->status = $request->isActive;
       $department->save();
 
       Session::flash('success', 'تمت العملية بنجاح!');
@@ -151,28 +153,34 @@ class EmployeeController extends Controller
     }
 
     public function department_activation($id , $status){
-      Department::find($id)->update(['isActive' => $status]);
+      Department::find($id)->update(['status' => $status]);
       Session::flash('success', 'تمت العملية بنجاح!');
       return redirect()->back();
     }
 
     public function add_new_job(Request $request){
-      $job_type = new JobType();
-      $job_type->type_en = $request->type_en;
-      $job_type->type_ar = $request->type_ar;
-      $job_type->department_id = $request->department_id;
-      if(isset($request->description))
-        $job_type->description = $request->description;
-      if(isset($request->parent_id))
-        $job_type->parent_id = $request->parent_id;
-      $job_type->save();
+      $job= new Job();
+      $job->job_en = $request->job_name_en;
+      $job->job_ar = $request->job_name_ar;
+      if(isset($request->dept_id))
+        $job->department_id = $request->dept_id;
+      else{
+        $j = Job::find($request->job_id);
+        $job->department_id = $j->department_id;
+      }
+      if(isset($request->job_desc))
+        $job->description = $request->job_desc;
+      if(isset($request->job_id))
+        $job->parent_id = $request->job_id;
+      $job->status = $request->isActive;
+      $job->save();
 
       Session::flash('success', 'تمت العملية بنجاح!');
       return redirect()->back();
     }
 
     public function job_activation($id , $status){
-      JobType::find($id)->update(['isActive' => $status]);
+      Job::find($id)->update(['status' => $status]);
       Session::flash('success', 'تمت العملية بنجاح!');
       return redirect()->back();
     }

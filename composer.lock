@@ -831,16 +831,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v7.30.2",
+            "version": "v7.30.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "405ca2bcf532dff1ef27f9f7ff7940221c575c84"
+                "reference": "28481951106e75cf8c5a8b24100059fa327df1ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/405ca2bcf532dff1ef27f9f7ff7940221c575c84",
-                "reference": "405ca2bcf532dff1ef27f9f7ff7940221c575c84",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/28481951106e75cf8c5a8b24100059fa327df1ef",
+                "reference": "28481951106e75cf8c5a8b24100059fa327df1ef",
                 "shasum": ""
             },
             "require": {
@@ -989,7 +989,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2021-01-13T13:37:00+00:00"
+            "time": "2021-01-15T15:38:30+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -6095,16 +6095,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.5.0",
+            "version": "9.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "8e16c225d57c3d6808014df6b1dd7598d0a5bbbe"
+                "reference": "e7bdf4085de85a825f4424eae52c99a1cec2f360"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/8e16c225d57c3d6808014df6b1dd7598d0a5bbbe",
-                "reference": "8e16c225d57c3d6808014df6b1dd7598d0a5bbbe",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/e7bdf4085de85a825f4424eae52c99a1cec2f360",
+                "reference": "e7bdf4085de85a825f4424eae52c99a1cec2f360",
                 "shasum": ""
             },
             "require": {
@@ -6182,7 +6182,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.0"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.1"
             },
             "funding": [
                 {
@@ -6194,7 +6194,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-12-04T05:05:53+00:00"
+            "time": "2021-01-17T07:42:25+00:00"
         },
         {
             "name": "sebastian/cli-parser",

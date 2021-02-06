@@ -13,7 +13,7 @@
                                         <ul class="breadcome-menu">
                                             <!--<li><a href="#">Home</a> <span class="bread-slash">/</span>
                                             </li>-->
-                                            <li><span class="bread-blod">تعديل بيانات العميل</span>
+                                            <li><span class="bread-blod">{{ __('customer.cus_edit_info') }}</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -37,56 +37,56 @@
 <input type="hidden" class="form-control" name="cus_id" value="{{$cusdetail->id}}">
 <div class="col-md-4">
     <div class="form-group">
-      <label for="email">اسم العميل بالإنجليزي</label>
+      <label for="email">{{ __('customer.cus_name_en') }}</label>
       <input type="text" class="form-control" name="cus_name_en" value="{{$cusdetail->name_en}}" required>
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="email">اسم العميل بالعربي</label>
+      <label for="email">{{ __('customer.cus_name_ar') }}</label>
       <input type="text" class="form-control" name="cus_name_ar" value="{{$cusdetail->name_ar}}" required>
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">رقم الجوال</label>
+      <label for="pwd">{{ __('customer.phone') }} </label>
       <input type="text" class="form-control" name="cus_phone" value="{{$cusdetail->phone}}"required>
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">رقم حساب العميل</label>
-      <input type="text" class="form-control"  name="cus_acc_no" value="7868686">
+      <label for="pwd">{{ __('customer.cus_account_num') }}</label>
+      <input type="text" class="form-control"  name="cus_acc_no" value="{{$cusdetail->tree->id_code}}" disabled>
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="email">العنوان</label>
+      <label for="email">{{ __('customer.address') }}</label>
       <input type="text" class="form-control" name="cus_address" value="{{$cusdetail->address}}" required>
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">المدينة</label>
+      <label for="pwd">{{ __('customer.city') }}</label>
       <input type="text" class="form-control" name="cus_city" value="{{$cusdetail->city}}" required>
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">المنطقة</label>
+      <label for="pwd">{{ __('customer.area') }}</label>
       <input type="text" class="form-control" name="cus_area" value="{{$cusdetail->area}}" required>
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="email">البريد الالكتروني</label>
+      <label for="email">{{ __('customer.email') }}</label>
       <input type="email" class="form-control" name="cus_email" value="{{$cusdetail->email}}" required>
     </div>
 </div>
@@ -97,35 +97,35 @@
 <div id="com_info">
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">اسم الشركة بالإنجليزي</label>
+      <label for="pwd">{{ __('customer.comp_name_en') }}</label>
       <input type="text" class="form-control" value="{{$cusdetail->company->company_name_en}}" name="com_name_en">
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">اسم الشركة بالعربي</label>
+      <label for="pwd">{{ __('customer.comp_name_ar') }}</label>
       <input type="text" class="form-control" value="{{$cusdetail->company->company_name_ar}}" name="com_name_ar">
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="email">الحد الائتماني</label>
+      <label for="email">{{ __('customer.credit_limit') }}</label>
       <input type="text" class="form-control" value="{{$cusdetail->company->credit_limit}}" name="com_credit_limit">
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">المدة الائتمانية</label>
+      <label for="pwd">{{ __('customer.credit_duration') }}</label>
       <input type="text" class="form-control" value="{{$cusdetail->company->credit_duration}}"  name="com_credit_duration">
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">الرصيد الحالي</label>
+      <label for="pwd">{{ __('customer.current_balance') }}</label>
       <input type="text" class="form-control" value="{{$cusdetail->company->current_balance}}" name="com_current_balance">
     </div>
 </div>
@@ -136,7 +136,7 @@
 
 <div class="row">
    <div class="col-md-4">
-      <button type="submit" class="btn btn-primary">تعديل البيانات</button>
+      <button type="submit" class="btn btn-primary">{{ __('customer.edit_info') }}</button>
     </div>
 </div>
 

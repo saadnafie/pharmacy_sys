@@ -3,10 +3,13 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-12">
-     <div class="hpanel">
+         <div class="col-md-3">
+         </div>
+        <div class="col-md-6">
+     <div class="hpanel" >
                     <div class="panel-body">
             <div class="card">
+                <center><img src="img/Logo.png" width="200px"></center><br>
                 <div class="card-header">{{ __('Login') }}</div>
                 <hr>
                 <div class="card-body">
@@ -55,7 +58,7 @@
                         </div>-->
 
                         
-                                <button type="submit" class="btn btn-success btn-block loginbtn">
+                                <button type="submit" class="btn btn-danger btn-block loginbtn">
                                     {{ __('Login') }}
                                 </button>
 

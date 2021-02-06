@@ -14,6 +14,8 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductType;
 use App\Models\ProductDate;
+use App\Models\TreeAccount;
+
 
 class StoreController extends Controller
 {
@@ -39,6 +41,20 @@ class StoreController extends Controller
     public function add_new_store(Request $request){
       //return auth()->user();
 
+      $acc = TreeAccount::where('id',10)->with('account')->first();
+      $code = ($acc->id_code.'000')+count($acc->account) + 1;
+      
+      $account = new TreeAccount;
+      $account->id_code = $code;
+      $account->name_ar = $request->store_name_ar;
+      $account->name_en = $request->store_name_en;
+      $account->account_type = 1;
+      $account->parent_id =  10;
+      $account->balance_type = 1;
+      $account->user_id = auth()->user()->id;
+      $account->final_account_id = 1;
+      $account->save();
+
       $store = new Store();
       $store->store_name_en = $request->store_name_en;
       $store->store_name_ar = $request->store_name_ar;
@@ -50,6 +66,7 @@ class StoreController extends Controller
       if($request->store_type == 1)
         $store->store_parent_id = $request->main_store;
       $store->department_id = $request->store_dept;
+      $store->tree_id = $account->id;
       
       $store->save();
       $st = "";
@@ -58,6 +75,9 @@ class StoreController extends Controller
       else if($store->id < 1000 ) $st = "st0";
       $store->store_code = $st.$store->id;
       $store->save();
+
+      $account->id_code = ($acc->id_code.'000')+$store->id;
+      $account->save();
 
       Session::flash('success', 'تمت العملية بنجاح!');
       return redirect()->route('storemanage');
@@ -105,6 +125,7 @@ class StoreController extends Controller
      /* $this->validate($request, [
           'sub_category' => 'required',
         ]);*/
+
 	    if($request->item_type == 3){
         $this->validate($request, [
           'sub_category' => 'required',
@@ -115,6 +136,7 @@ class StoreController extends Controller
           'defaultprice_purchase' => 'required',
           'base_store' => 'required',
           'sku_code' => 'required|unique:products,SKU_code',
+          'barcode' => 'required|unique:products,barcode',
           'stock_limit_alarm' => 'required',
           'react_material_en' => 'required',
           'react_material_ar' => 'required',
@@ -141,23 +163,23 @@ class StoreController extends Controller
       		'defaultprice_purchase.required' => 'this field is required',
       		]);
       		
-              }else{
-                $this->validate($request, [
-      		  'sub_category' => 'required',
-                'defaultprice_purchase' => 'required',
-                'base_store' => 'required',
-                'sku_code' => 'required|unique:products,SKU_code',
-                'stock_limit_alarm' => 'required',
-                'react_material_en' => 'required',
-                'react_material_ar' => 'required',
-                'concentrate' => 'required',
-                'pro_type' => 'required',
-                'base_amount' => 'required',
-                'defaultprice_purchase' => 'required',
-      		  
-                  'base_production_date' => 'required',
-                  'base_expire_date' => 'required',
-                ],[
+        }else{
+          $this->validate($request, [
+		      'sub_category' => 'required',
+          'defaultprice_purchase' => 'required',
+          'base_store' => 'required',
+          'sku_code' => 'required|unique:products,SKU_code',
+          'stock_limit_alarm' => 'required',
+          'react_material_en' => 'required',
+          'react_material_ar' => 'required',
+          'concentrate' => 'required',
+          'pro_type' => 'required',
+          'base_amount' => 'required',
+          'defaultprice_purchase' => 'required',
+		  
+          'base_production_date' => 'required',
+          'base_expire_date' => 'required',
+          ],[
       		'defaultprice_purchase.required' => 'this field is required',
       		'base_store.required' => 'this field is required',
       		'sku_code.required' => 'this field is required',
@@ -171,6 +193,8 @@ class StoreController extends Controller
 		  ]);
         
       }
+
+      //return $request;
 
       $item = new Item();
       $item->code = "10000";
@@ -192,12 +216,14 @@ class StoreController extends Controller
         $product->default_buy_price = $request->defaultprice_purchase;
         $product->default_store_id = $request->base_store;
         $product->SKU_code = $request->sku_code;
+        $product->barcode = $request->barcode;
         $product->stock_limit = $request->stock_limit_alarm;
         $product->track_type = $request->stock_tracking;
         $product->react_material_en = $request->react_material_en;
         $product->react_material_ar = $request->react_material_ar;
         $product->concentrate = $request->concentrate;
         $product->product_type_id = $request->pro_type;
+        
         $product->save();
 
         if(isset($request->active_multi_val) && $request->active_multi_val == 1){
@@ -245,6 +271,36 @@ class StoreController extends Controller
       $pro_date->store_id = $request->store_id;
       $pro_date->note = $request->notes;
       $pro_date->save();
+
+      return redirect()->back();
+    }
+
+    /////////////////////// Definitions /////////////////////////
+
+    public function show_all_definitions(){
+      $categories = Category::whereNull('parent_id')->get();
+      $sub_categories = Category::whereNotNull('parent_id')->with('main')->get();
+      $pro_types = ProductType::all();
+
+      return view('admin.store.productdefinition',compact('categories','sub_categories','pro_types'));
+    }
+
+    public function add_new_category(Request $request){
+      $category = new Category();
+      $category->category_en = $request->cat_en;
+      $category->category_ar = $request->cat_ar;
+      if(isset($request->cat_val))
+        $category->parent_id = $request->cat_val;
+      $category->save();
+
+      return redirect()->back();
+    }
+
+    public function add_new_type(Request $request){
+      $type = new ProductType();
+      $type->type_en = $request->type_en;
+      $type->type_ar = $request->type_ar;
+      $type->save();
 
       return redirect()->back();
     }

@@ -7,32 +7,14 @@
 display:none;
 }
   </style>
-          <div class="breadcome-area">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="breadcome-list">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        <ul class="breadcome-menu">
-                                            <!--<li><a href="#">Home</a> <span class="bread-slash">/</span>
-                                            </li>-->
-                                            <li><span class="bread-blod">اضافة الموردين</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
      
         <div class="analytics-sparkle-area">
             <div class="container-fluid">
-			
+			<br>
 
 <div class="panel panel-default">
+  <div class="panel-heading">{{ __('supplier.add_supp') }}</div>
   <div class="panel-body">
 <form action="{{route('add_new_supplier')}}"  method="post">
 @csrf
@@ -40,66 +22,59 @@ display:none;
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="email">اسم المورد بالإنجليزي</label>
+      <label for="email">{{ __('supplier.supp_name_en') }}</label>
       <input type="text" class="form-control" name="sup_name_en" required>
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="email">اسم المورد بالعربي</label>
+      <label for="email">{{ __('supplier.supp_name_ar') }}</label>
       <input type="text" class="form-control" name="sup_name_ar" required>
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">رقم الجوال</label>
+      <label for="pwd">{{ __('supplier.phone') }}</label>
       <input type="text" class="form-control" name="sup_phone" required>
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">رقم حساب المورد</label>
-      <input type="text" class="form-control" name="sup_acc_no" disabled>
-    </div>
-</div>
-
-<div class="col-md-4">
-    <div class="form-group">
-      <label for="email">العنوان</label>
+      <label for="email">{{ __('supplier.address') }}</label>
       <input type="text" class="form-control" name="sup_address" required>
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">المدينة</label>
+      <label for="pwd">{{ __('supplier.city') }}</label>
       <input type="text" class="form-control" name="sup_city" required>
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">المنطقة</label>
+      <label for="pwd">{{ __('supplier.area') }}</label>
       <input type="text" class="form-control" name="sup_area" required>
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="email">البريد الالكتروني</label>
+      <label for="email">{{ __('supplier.email') }}</label>
       <input type="email" class="form-control" name="sup_email" required>
     </div>
 </div>
 
 <div class="col-md-12">
         <div class="form-group">
-      <label for="pwd">نوع العميل</label>
+      <label for="pwd">{{ __('supplier.supp_type') }}</label>
         <div class="radio">
-  <label><input type="radio" name="sup_type" value="0" onclick="company_info_disable()" checked>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;نقدي</label>
-  <label><input type="radio" name="sup_type" value="1" onclick="company_info_enable()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;آجل</label>
+  <label><input type="radio" name="sup_type" value="0" onclick="company_info_disable()" checked>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ __('supplier.cash') }}</label>
+  <label><input type="radio" name="sup_type" value="1" onclick="company_info_enable()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ __('supplier.postponed') }}</label>
 </div>
     </div>
 </div>
@@ -109,35 +84,35 @@ display:none;
 <div id="com_info">
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">اسم الشركة بالإنجليزي</label>
+      <label for="pwd">{{ __('supplier.comp_name_en') }}</label>
       <input type="text" class="form-control" name="com_name_en">
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">اسم الشركة بالعربي</label>
+      <label for="pwd">{{ __('supplier.comp_name_ar') }}</label>
       <input type="text" class="form-control" name="com_name_ar">
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="email">الحد الائتماني</label>
+      <label for="email">{{ __('supplier.credit_limit') }}</label>
       <input type="text" class="form-control" name="com_credit_limit">
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">المدة الائتمانية</label>
+      <label for="pwd">{{ __('supplier.credit_duration') }}</label>
       <input type="text" class="form-control" name="com_credit_duration">
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">الرصيد الحالي</label>
+      <label for="pwd">{{ __('supplier.current_balance') }}</label>
       <input type="text" class="form-control" name="com_current_balance">
     </div>
 </div>
@@ -145,7 +120,7 @@ display:none;
 </div>
 
 <div class="col-md-12">
-    <button type="submit" class="btn btn-primary">حفظ</button>
+    <button type="submit" class="btn btn-primary">{{ __('supplier.save') }}</button>
     </div>
 
   </form>

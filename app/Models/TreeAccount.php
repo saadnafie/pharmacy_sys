@@ -32,7 +32,7 @@ class TreeAccount extends Model
 	
 	public function getTextAttribute($value) {
         //return $this->{'name_ar'};
-		 return $this->{'name_' . App::getLocale()};
+		 return $this->{'name_' . App::getLocale()} .'   ('.$this->id_code.')';
     }
 	
 	public function getAAttrAttribute($value) {

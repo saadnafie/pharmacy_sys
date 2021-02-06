@@ -7,6 +7,11 @@ use App;
 
 class Department extends Model
 {
+
+	protected $fillable = [
+        'status'
+    ];
+
 	public function getDepartmentAttribute($value) {
         return $this->{'department_' . App::getLocale()};
     }

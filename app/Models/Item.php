@@ -7,6 +7,9 @@ use App;
 
 class Item extends Model
 {
+
+	protected $appends =['name'];
+
 	public function getNameAttribute($value) {
         return $this->{'name_' . App::getLocale()};
     }
