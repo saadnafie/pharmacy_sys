@@ -64,10 +64,6 @@
     </div>
 
 
-    <div class="form-group">
-      <label for="email">صلاحية العرض</label>
-<input type="text" class="form-control"  value="الكل" disabled>
-    </div>
 
 </div><!-------col---->
 
@@ -94,11 +90,6 @@
 
 
 
-<div class="form-group">
-   <label for="email">صلاحية انشاء فواتير </label>
-<input type="text" class="form-control"  value="الكل" disabled>
-    </div>
-
 </div><!-------col---->
 
 
@@ -117,10 +108,6 @@
 
 
 
-<div class="form-group">
-  <label for="email">صلاحية تعديل المخازن </label>
-<input type="text" class="form-control"  value="الكل" disabled>
-    </div>
 
 </div><!-------col---->
 

@@ -15,6 +15,10 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
     <!-- Bootstrap CSS
 		============================================ -->
+        
+
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">-->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <!-- Bootstrap CSS
 		============================================ -->
@@ -65,6 +69,8 @@
 	
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" >
 
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
 @if(App::isLocale('ar')) 
 <style>
 body{
@@ -72,11 +78,11 @@ body{
 }
 .all-content-wrapper{
         margin-left: unset;
-        margin-right: 245px;
+        margin-right: 200px;
 }
 .header-top-area {
     left: 0px !important;
-    right: 245px !important;
+    right: 200px !important;
 }
 .mini-navbar .header-top-area {
 left:0 !important;
@@ -100,7 +106,7 @@ right: 80px !important;
 }
 
 #sidebar {
-    min-width: 240px;
+    min-width: 200px;
 }
 th,td{
 	text-align:right;
@@ -149,8 +155,15 @@ th,td{
 }
 
 .breadcome-list {
-     margin-top: 20px; 
+    /* margin-top: 20px; */
 }
+
+.nav-tabs>li {
+    float: right;
+    }
+    .sidebar-nav .metismenu a{
+        font-size: 14px !important;
+    }
 </style>
 @endif
 
@@ -165,8 +178,8 @@ th,td{
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
-                <a href="{{url('dashboard')}}"><img class="main-logo" src="{{url('img/client_logo.jpeg')}}" alt="" width="250px"/></a>
-                <strong><a href="{{url('dashboard')}}"><img src="{{url('img/client_logo.jpeg')}}" alt="" /></a></strong>
+                <a href="{{url('dashboard')}}"><img class="main-logo" src="{{url('img/Logo.png')}}" alt="" width="200px"/></a>
+                <strong><a href="{{url('dashboard')}}"><img src="{{url('img/Logo.png')}}" alt="" /></a></strong>
             </div>
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
@@ -214,10 +227,10 @@ th,td{
 						<li>
                             <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span> <span class="mini-click-non">إدارة المخازن</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Courses" href="{{url('productservice')}}"><span class="mini-sub-pro">المنتجات والخدمات</span></a></li>
-                                <li><a title="Add Courses" href="{{url('storemanage')}}"><span class="mini-sub-pro">ادارة المستودع</span></a></li>
-                                <li><a title="Edit Courses" href="#"><span class="mini-sub-pro">ادارة الجرد</span></a></li>
-								<li><a title="Edit Courses" href="#"><span class="mini-sub-pro">اعدادت المخازن</span></a></li>
+                                <li><a  href="{{url('productservice')}}"><span class="mini-sub-pro">المنتجات والخدمات</span></a></li>
+                                <li><a  href="{{url('storemanage')}}"><span class="mini-sub-pro">ادارة المستودع</span></a></li>
+                                <li><a  href="#"><span class="mini-sub-pro">ادارة الجرد</span></a></li>
+								<li><a  href="{{url('storesetting')}}"><span class="mini-sub-pro">اعدادت المخازن</span></a></li>
                             </ul>
                         </li>
 
@@ -231,10 +244,10 @@ th,td{
 						
 						
 						<li>
-                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span><span class="mini-click-non"> إدارة شؤون الموظفين</span></a>
+                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span><span class="mini-click-non"> شؤون الموظفين</span></a>
                             <ul class="submenu-angle page-mini-nb-dp" aria-expanded="false">
                                 <li><a  href="{{url('manageemployee')}}"><span class="mini-sub-pro">إدارة الموظفين</span></a></li>
-                                <li><a  href="#"><span class="mini-sub-pro">الهيكل التنظيمي</span></a></li>
+                                <li><a  href="{{url('orgstructure')}}"><span class="mini-sub-pro">الهيكل التنظيمي</span></a></li>
                                 <li><a  href="#"><span class="mini-sub-pro">الحضور والانصراف</span></a></li>
                                 <li><a  href="#"><span class="mini-sub-pro">ادارة المرتبات</span></a></li>
                                 <li><a  href="#"><span class="mini-sub-pro">اعدادات الموظفين</span></a></li>
@@ -275,7 +288,7 @@ th,td{
 						<li>
                             <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span><span class="mini-click-non"> الفروع</span></a>
                             <ul class="submenu-angle page-mini-nb-dp" aria-expanded="false">
-                                <li><a  href="#"><span class="mini-sub-pro">ادارة الفروع</span></a></li>
+                                <li><a  href="{{url('managebranch')}}"><span class="mini-sub-pro">ادارة الفروع</span></a></li>
                                 <li><a  href="#"><span class="mini-sub-pro">أضف فرع</span></a></li>
                                 <li><a  href="#"><span class="mini-sub-pro">اعدادات الفروع</span></a></li>
                             </ul>
@@ -289,7 +302,7 @@ th,td{
                                 <li><a  href="#"><span class="mini-sub-pro">إعدادات الـ SMTP</span></a></li>
                                 <li><a  href="#"><span class="mini-sub-pro">خيارات الدفع</span></a></li>
                                 <li><a  href="#"><span class="mini-sub-pro">إعدادات الـ SMS</span></a></li>
-                                <li><a  href="#"><span class="mini-sub-pro">إعدادات الضرائب</span></a></li>
+                                <li><a  href="{{url('taxsetting')}}"><span class="mini-sub-pro">إعدادات الضرائب</span></a></li>
                             </ul>
                         </li>
 						
@@ -435,7 +448,16 @@ th,td{
                                                     <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
                                                         <li><a href="#"><span class="edu-icon edu-settings author-log-ic"></span>{{ __('adminpanel.settings') }}</a>
                                                         </li>
-                                                        <li><a href="#"><span class="edu-icon edu-locked author-log-ic"></span>{{ __('adminpanel.logout') }}</a>
+                                                        <li><a href="{{ route('logout') }}"><span class="edu-icon edu-locked author-log-ic"></span><span class="mini-click-non"  onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">{{ __('adminpanel.logout') }}</span></a>
+
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+
+              
+
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -458,48 +480,137 @@ th,td{
                                 <nav id="dropdown">
                                     <ul class="mobile-menu-nav">
                                      
-                                        <li><a href="events.html">Dashboard</a></li>
-                                        <li><a data-toggle="collapse" data-target="#demoevent" href="#">Professors <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
-                                            <ul id="demoevent" class="collapse dropdown-header-top">
-                                                <li><a href="all-professors.html">All Professors</a>
-                                                </li>
-                                                <li><a href="add-professor.html">Add Professor</a>
-                                                </li>
-                                                <li><a href="edit-professor.html">Edit Professor</a>
-                                                </li>
-                                                <li><a href="professor-profile.html">Professor Profile</a>
-                                                </li>
-                                            </ul>
-                                        </li>
+                                          <li>
+                            <a title="Landing Page" href="{{url('dashboard')}}" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span> <span class="mini-click-non">{{ __('adminpanel.dashboard') }}</span></a>
+                        </li>
+                     
+                        <li>
+                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span> <span class="mini-click-non">إدارة المبيعات</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                <li><a title="All Courses" href="{{url('managebill')}}"><span class="mini-sub-pro">إدارة الفواتير</span></a></li>
+                                <li><a title="Add Courses" href="{{url('returnbill')}}"><span class="mini-sub-pro">إرجاع الفواتير</span></a></li>
+                                <li><a title="Edit Courses" href="{{url('pricelist')}}"><span class="mini-sub-pro">عروض الاسعار</span></a></li>
+                                <li><a title="Edit Courses" href="{{url('pointofsale')}}"><span class="mini-sub-pro">نقاط البيع</span></a></li>
+                                <li><a title="Edit Courses" href="{{url('managepointofsale')}}"><span class="mini-sub-pro">ادارة نقاط البيع</span></a></li>
+                            </ul>
+                        </li>
+                  
+                        
+                        <li>
+                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span> <span class="mini-click-non">إدارة المشتريات</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                <li><a title="All Courses" href="{{url('purchasemanagebill')}}"><span class="mini-sub-pro">إدارة الفواتير</span></a></li>
+                                <li><a title="Add Courses" href="{{url('purchasereturnbill')}}"><span class="mini-sub-pro">إرجاع الفواتير</span></a></li>
+                                <li><a title="Edit Courses" href="{{url('purchaserequest')}}"><span class="mini-sub-pro">طلبات الشراء</span></a></li>
+                            </ul>
+                        </li>
+                        
+                        <li>
+                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span> <span class="mini-click-non">إدارة العملاء</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                <li><a title="All Courses" href="{{url('customerlist')}}"><span class="mini-sub-pro">قائمة العملاء</span></a></li>
+                            </ul>
+                        </li>
+                        
+                        <li>
+                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span> <span class="mini-click-non">إدارة الموردين</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                <li><a title="All Courses" href="{{url('supplierlist')}}"><span class="mini-sub-pro">قائمة الموردين</span></a></li>
+                            </ul>
+                        </li>
+                        
+                        <li>
+                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span> <span class="mini-click-non">إدارة المخازن</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                <li><a  href="{{url('productservice')}}"><span class="mini-sub-pro">المنتجات والخدمات</span></a></li>
+                                <li><a  href="{{url('storemanage')}}"><span class="mini-sub-pro">ادارة المستودع</span></a></li>
+                                <li><a  href="#"><span class="mini-sub-pro">ادارة الجرد</span></a></li>
+                                <li><a  href="{{url('storesetting')}}"><span class="mini-sub-pro">اعدادت المخازن</span></a></li>
+                            </ul>
+                        </li>
 
-                                        <li><a data-toggle="collapse" data-target="#democrou" href="#">Courses <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
-                                            <ul id="democrou" class="collapse dropdown-header-top">
-                                                <li><a href="all-courses.html">All Courses</a>
-                                                </li>
-                                                <li><a href="add-course.html">Add Course</a>
-                                                </li>
-                                                <li><a href="edit-course.html">Edit Course</a>
-                                                </li>
-                                                <li><a href="course-profile.html">Courses Info</a>
-                                                </li>
-                                                <li><a href="course-payment.html">Courses Payment</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li><a data-toggle="collapse" data-target="#Pagemob" href="#">Pages <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
-                                            <ul id="Pagemob" class="collapse dropdown-header-top">
-                                                <li><a href="login.html">Login</a>
-                                                </li>
-                                                <li><a href="register.html">Register</a>
-                                                </li>
-                                                <li><a href="lock.html">Lock</a>
-                                                </li>
-                                                <li><a href="password-recovery.html">Password Recovery</a>
-                                                </li>
-                                                <li><a href="404.html">404 Page</a></li>
-                                                <li><a href="500.html">500 Page</a></li>
-                                            </ul>
-                                        </li>
+                        <li>
+                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span> <span class="mini-click-non">شركات التأمين</span></a>
+                            <ul class="submenu-angle" aria-expanded="false">
+                                <li><a title="All Courses" href="{{url('insurancecompanylist')}}"><span class="mini-sub-pro">تعريف وادارة الشركات</span></a></li>
+                                
+                            </ul>
+                        </li>
+                        
+                        
+                        <li>
+                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span><span class="mini-click-non"> شؤون الموظفين</span></a>
+                            <ul class="submenu-angle page-mini-nb-dp" aria-expanded="false">
+                                <li><a  href="{{url('manageemployee')}}"><span class="mini-sub-pro">إدارة الموظفين</span></a></li>
+                                <li><a  href="{{url('orgstructure')}}"><span class="mini-sub-pro">الهيكل التنظيمي</span></a></li>
+                                <li><a  href="#"><span class="mini-sub-pro">الحضور والانصراف</span></a></li>
+                                <li><a  href="#"><span class="mini-sub-pro">ادارة المرتبات</span></a></li>
+                                <li><a  href="#"><span class="mini-sub-pro">اعدادات الموظفين</span></a></li>
+                            </ul>
+                        </li>
+
+                   
+                        <li id="removable">
+                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span><span class="mini-click-non">{{ __('adminpanel.finance') }}</span></a>
+                            <ul class="submenu-angle page-mini-nb-dp" aria-expanded="false">
+                                <li><a title="Lock" href="{{url('treasurybanklist')}}"><span class="mini-sub-pro">{{ __('adminpanel.bank_account_safe') }}</span></a></li>
+                                <li><a title="Password Recovery" href="{{url('dailyentrylist')}}"><span class="mini-sub-pro">{{ __('adminpanel.daily_movements') }}</span></a></li>
+                                <li><a title="404 Page" href="{{url('accountstree')}}"><span class="mini-sub-pro">{{ __('adminpanel.accounts_tree') }}</span></a></li>
+                                <li><a title="500 Page" href="#"><span class="mini-sub-pro">{{ __('adminpanel.assets') }}</span></a></li>
+                                <li><a title="500 Page" href="#"><span class="mini-sub-pro">{{ __('adminpanel.cost_centers') }}</span></a></li>
+                                <li><a title="500 Page" href="#"><span class="mini-sub-pro">{{ __('adminpanel.General_accounts_settings') }}</span></a></li>
+                            </ul>
+                        </li>
+                       
+                       
+                       
+                        
+                        <li>
+                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span><span class="mini-click-non"> التقارير</span></a>
+                            <ul class="submenu-angle page-mini-nb-dp" aria-expanded="false">
+                                <li><a  href="#"><span class="mini-sub-pro">المبيعات</span></a></li>
+                                <li><a  href="#"><span class="mini-sub-pro">تقارير المشتريات</span></a></li>
+                                <li><a  href="#"><span class="mini-sub-pro">تقارير المحاسبة العامه</span></a></li>
+                                <li><a  href="#"><span class="mini-sub-pro">تقارير الـ SMS</span></a></li>
+                                <li><a  href="#"><span class="mini-sub-pro">تقارير المرتبات</span></a></li>
+                                <li><a  href="#"><span class="mini-sub-pro">تقارير الحضور</span></a></li>
+                                <li><a  href="#"><span class="mini-sub-pro">تقارير العملاء</span></a></li>
+                                <li><a  href="#"><span class="mini-sub-pro">تقارير المخزون</span></a></li>
+                                <li><a  href="#"><span class="mini-sub-pro">سجل النشاطات للحساب</span></a></li>
+                            </ul>
+                        </li>
+                        
+                        <li>
+                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span><span class="mini-click-non"> الفروع</span></a>
+                            <ul class="submenu-angle page-mini-nb-dp" aria-expanded="false">
+                                <li><a  href="{{url('managebranch')}}"><span class="mini-sub-pro">ادارة الفروع</span></a></li>
+                                <li><a  href="#"><span class="mini-sub-pro">أضف فرع</span></a></li>
+                                <li><a  href="#"><span class="mini-sub-pro">اعدادات الفروع</span></a></li>
+                            </ul>
+                        </li>
+                        
+                        <li>
+                            <a class="has-arrow" href="#" aria-expanded="false"><span class="educate-icon educate-course icon-wrap"></span><span class="mini-click-non"> الإعدادات</span></a>
+                            <ul class="submenu-angle page-mini-nb-dp" aria-expanded="false">
+                                <li><a  href="#"><span class="mini-sub-pro">معلومات الحساب</span></a></li>
+                                <li><a  href="#"><span class="mini-sub-pro">إعدادات الحساب</span></a></li>
+                                <li><a  href="#"><span class="mini-sub-pro">إعدادات الـ SMTP</span></a></li>
+                                <li><a  href="#"><span class="mini-sub-pro">خيارات الدفع</span></a></li>
+                                <li><a  href="#"><span class="mini-sub-pro">إعدادات الـ SMS</span></a></li>
+                                <li><a  href="#"><span class="mini-sub-pro">إعدادات الضرائب</span></a></li>
+                            </ul>
+                        </li>
+                        
+                        
+                       <li>
+                            <a title="Landing Page" href="{{ route('logout') }}" aria-expanded="false"><span class="educate-icon educate-pages icon-wrap"></span> <span class="mini-click-non"  onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">{{ __('adminpanel.logout') }}</span></a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+
+                        </li>
                                     </ul>
                                 </nav>
                             </div>
@@ -529,7 +640,12 @@ th,td{
 
         <!-- jquery
         ============================================ -->
-    <script src="{{asset('js/vendor/jquery-1.12.4.min.js')}}"></script>
+    <!--<script src="{{asset('js/vendor/jquery-1.12.4.min.js')}}"></script>-->
+
+
+   
+   <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+   <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
     <!-- bootstrap JS
         ============================================ -->
     <script src="{{asset('js/bootstrap.min.js')}}"></script>

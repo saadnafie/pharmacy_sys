@@ -16,7 +16,7 @@
                                         <ul class="breadcome-menu">
                                             <!--<li><a href="#">Home</a> <span class="bread-slash">/</span>
                                             </li>-->
-                                            <li><span class="bread-blod">بيانات العميل</span>
+                                            <li><span class="bread-blod">{{ __('customer.cus_info') }}</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -34,23 +34,23 @@
 
 <div class="col-md-6">
     <a href="{{url('editcustomer')}}/{{$cusdetail->id}}" class="btn btn-info">
-            <i class="fa fa-edit" aria-hidden="true"></i> تعديل بيانات</a>	
+            <i class="fa fa-edit" aria-hidden="true"></i>{{ __('customer.edit_info') }}</a>	
 </div>
                       <div class="col-md-6" style="text-align:left;">
             @if($cusdetail->isActive != 2)
             <a href="{{url('customer_activation')}}/{{$cusdetail->id}}/2" class="btn btn-warning">
-            <i class="fa fa-minus-circle" aria-hidden="true"></i> تعليق</a> 
+            <i class="fa fa-minus-circle" aria-hidden="true"></i> {{ __('customer.suspend') }}</a> 
             @endif
             @if($cusdetail->isActive != 1)
             <a href="{{url('customer_activation')}}/{{$cusdetail->id}}/1" class="btn btn-success">
-            <i class="fa fa-check" aria-hidden="true"></i> تفعيل</a> 
+            <i class="fa fa-check" aria-hidden="true"></i> {{ __('customer.activate') }}</a> 
             @endif
             @if($cusdetail->isActive != 3)
             <a href="{{url('customer_activation')}}/{{$cusdetail->id}}/3" class="btn btn-danger">
-            <i class="fa fa-ban" aria-hidden="true"></i> حظر</a> 
+            <i class="fa fa-ban" aria-hidden="true"></i> {{ __('customer.blocking') }}</a> 
             @endif 
 <br>
-            <span>حالة</span>:&nbsp;{{$cusdetail->activation->activation}}
+            <span>{{ __('customer.status') }}</span>:&nbsp;{{$cusdetail->activation->activation}}
           </div>
 </div>
 
@@ -63,60 +63,67 @@
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="email">اسم العميل</label>
-      <input type="text" class="form-control" value="{{$cusdetail->name}}" disabled>
+      <label for="email">{{ __('customer.cus_name_en') }}</label>
+      <input type="text" class="form-control" value="{{$cusdetail->name_en}}" disabled>
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">رقم الجوال</label>
+      <label for="email">{{ __('customer.cus_name_ar') }}</label>
+      <input type="text" class="form-control" value="{{$cusdetail->name_ar}}" disabled>
+    </div>
+</div>
+
+<div class="col-md-4">
+    <div class="form-group">
+      <label for="pwd">{{ __('customer.phone') }}</label>
       <input type="text" class="form-control" value="{{$cusdetail->phone}}" disabled>
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">رقم حساب العميل</label>
-      <input type="text" class="form-control"  value="123456" disabled>
+      <label for="pwd">{{ __('customer.cus_account_num') }}</label>
+      <input type="text" class="form-control"  value="{{$cusdetail->tree->id_code}}" disabled>
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="email">العنوان</label>
+      <label for="email">{{ __('customer.address') }}</label>
       <input type="text" class="form-control" value="{{$cusdetail->address}}" disabled>
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">المدينة</label>
+      <label for="pwd">{{ __('customer.city') }}</label>
       <input type="text" class="form-control" value="{{$cusdetail->city}}" disabled>
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">المنطقة</label>
+      <label for="pwd">{{ __('customer.area') }}</label>
       <input type="text" class="form-control" value="{{$cusdetail->area}}" disabled>
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="email">البريد الالكتروني</label>
+      <label for="email">{{ __('customer.email') }}</label>
       <input type="email" class="form-control" value="{{$cusdetail->email}}" disabled>
     </div>
 </div>
 
 <div class="col-md-4">
    <div class="form-group">
-      <label for="pwd">نوع العميل</label>
+      <label for="pwd">{{ __('customer.cus_type') }}</label>
       @if($cusdetail->type == 0)
-      <input type="text" class="form-control" value="فردي" disabled>
+      <input type="text" class="form-control" value="{{ __('customer.individual') }}" disabled>
        @else
-      <input type="text" class="form-control" value="شركة" disabled>
+      <input type="text" class="form-control" value="{{ __('customer.company') }}" disabled>
       @endif
     </div>
 </div>
@@ -124,30 +131,57 @@
 <div id="com_info">
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">اسم الشركة</label>
-      <input type="text" class="form-control" value="{{$cusdetail->company->company_name}}" disabled>
+      <label for="pwd">{{ __('customer.comp_name_en') }}</label>
+      <input type="text" class="form-control" value="{{$cusdetail->company->company_name_en}}" disabled>
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="email">الحد الائتماني</label>
+      <label for="pwd">{{ __('customer.comp_name_ar') }}</label>
+      <input type="text" class="form-control" value="{{$cusdetail->company->company_name_ar}}" disabled>
+    </div>
+</div>
+
+<div class="col-md-4">
+    <div class="form-group">
+      <label for="email">{{ __('customer.credit_limit') }}</label>
       <input type="text" class="form-control" value="{{$cusdetail->company->credit_limit}}" disabled>
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">المدة الائتمانية</label>
+      <label for="pwd">{{ __('customer.credit_duration') }}</label>
       <input type="text" class="form-control" value="{{$cusdetail->company->credit_duration}}" disabled>
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">الرصيد الحالي</label>
+      <label for="pwd">{{ __('customer.current_balance') }}</label>
       <input type="text" class="form-control" value="{{$cusdetail->company->current_balance}}" disabled>
     </div>
+</div>
+</div>
+@endif
+
+@if($cusdetail->insurance_class != null)
+<div id="com_info">
+<div class="col-md-4">
+    <div class="form-group">
+      <label for="pwd">{{ __('customer.insur_comp') }}</label>
+      <input type="text" class="form-control" value="{{$cusdetail->insurance_class->company->company_name}}" disabled>
+    </div>
+</div>
+
+<div class="col-md-4">
+    <div class="form-group">
+      <label for="email">{{ __('customer.class') }}</label>
+      <input type="text" class="form-control" value="{{$cusdetail->insurance_class->class_name}}" disabled>
+    </div>
+</div>
+
 </div>
 </div>
 @endif

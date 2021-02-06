@@ -135,11 +135,9 @@
   </div>
 
   <div class="form-group">
-    <label for="pwd">{{ __('accounttree.account_type') }}</label>
-    <select class="form-control" name="acc_type">
-        <option value="0">رئيسي</option>
-         <option value="1">فرعي</option>
-    </select>
+    <label for="pwd">{{ __('accounttree.account_type') }}</label><br>
+    <input type="radio"  name="acc_type" value="0"  checked>&nbsp;&nbsp;&nbsp;رئيسي&nbsp;&nbsp;
+  <input type="radio"  name="acc_type" value="1" >&nbsp;&nbsp;&nbsp;فرعي
   </div>
 
   <div class="form-group">
@@ -152,19 +150,18 @@
   </div>
   
   <div class="form-group">
-    <label for="pwd">دائن / مدين</label>
-    <select class="form-control" name="credit_debit">
-        <option value="0">دائن</option>
-         <option value="1">مدين</option>
-    </select>
+    <label for="pwd">دائن / مدين</label><br>
+    <input type="radio"  name="credit_debit" value="0"  checked>&nbsp;&nbsp;&nbsp;دائن&nbsp;&nbsp;
+  <input type="radio"  name="credit_debit" value="1" >&nbsp;&nbsp;&nbsp;مدين
+
   </div>
   
     <div class="form-group">
     <label for="pwd">{{ __('accounttree.final_account') }}</label>
-    <select class="form-control" name="acc_parent">
-       <option value="0">ميزان مراجعة</option>
-	   <option value="0">قائمة الدخل</option>
-	   <option value="0">ارباح وخسارة</option>
+    <select class="form-control" name="final_acc">
+        @foreach($final_accounts as $value)
+       <option value="{{$value->id}}">{{$value->final_account}}</option>
+       @endforeach
     </select>
   </div>
 

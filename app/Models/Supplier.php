@@ -23,6 +23,11 @@ class Supplier extends Model
    		return $this->belongsTo('App\Models\User', 'user_id');
 	}
 
+	public function tree()
+	{
+   		return $this->belongsTo('App\Models\TreeAccount', 'tree_id');
+	}
+
 	public function activation()
 	{
    		return $this->belongsTo('App\Models\Activation', 'isActive');

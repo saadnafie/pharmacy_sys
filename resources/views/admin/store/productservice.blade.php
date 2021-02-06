@@ -1,31 +1,12 @@
 @extends('admin.layouts.header')
 
 @section('content')
-          <div class="breadcome-area">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="breadcome-list">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        <ul class="breadcome-menu">
-                                            <!--<li><a href="#">Home</a> <span class="bread-slash">/</span>
-                                            </li>-->
-                                            <li><span class="bread-blod">المنتجات والخدمات</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
      
         <div class="analytics-sparkle-area">
             <div class="container-fluid">
-			
-			<a href="{{url('addproduct')}}" type="button" class="btn btn-info">اضافة صنف</a>
+			<br>
+			المنتجات والخدمات: <a href="{{url('addproduct')}}" type="button" class="btn btn-info">اضافة صنف</a>
 			<br><br>
 			<div class="row">
 			<div class="col-md-3">
@@ -42,7 +23,7 @@
 <div class="panel panel-default">
   <div class="panel-body">
 <div class="table-responsive">
-<table class="table table-bordered">
+<table class="table table-bordered" id="example">
     <thead>
       <tr>
         <th>#</th>
@@ -82,7 +63,11 @@
             </div>
         </div>
 
-
+<script>
+$(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script>
     @endsection
 
     

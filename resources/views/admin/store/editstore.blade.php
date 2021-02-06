@@ -42,48 +42,37 @@
       <label for="email">اسم المستودع بالإنجليزي</label>
       <input type="text" class="form-control"  name="store_name_en" value="{{$stdetail->store_name_en}}" required>
     </div>
+  </div>
 
+ <div class="col-sm-4">
     <div class="form-group">
       <label for="email">اسم المستودع بالعربي</label>
       <input type="text" class="form-control"  name="store_name_ar" value="{{$stdetail->store_name_ar}}" required>
     </div>
+  </div>
+
+   <div class="col-sm-4">
 
   <div class="form-group">
     <label for="email">العنوان</label>
       <input type="text" class="form-control"  name="store_address" value="{{$stdetail->address}}"required>
     </div>
-
-
-  
-
-
 </div><!-------col---->
 
 
  <div class="col-sm-4">
-
-
-  
     <div class="form-group">
        <label for="email">المدينة </label>
       <input type="text" class="form-control"  name="store_city" value="{{$stdetail->city}}" required>
     </div>
-
-
 </div><!-------col---->
 
 
  <div class="col-sm-4">
-
-
-
 <div class="form-group">
    <label for="email">المنطقة </label>
       <input type="text" class="form-control"  name="store_area" value="{{$stdetail->area}}" required>
     </div>
-
-
-
 </div><!-------col---->
 
  <div class="col-sm-12">

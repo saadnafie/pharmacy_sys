@@ -12,8 +12,7 @@ use App\Models\InsuranceCompanyClass;
 class InsuranceCompanyController extends Controller
 {
 
-    public function __construct()
-    {
+    public function __construct(){
       $this->middleware('auth');
     }
 
@@ -29,7 +28,8 @@ class InsuranceCompanyController extends Controller
     public function add_new_company(Request $request){
       //return auth()->user();
         $company = new InsuranceCompany();
-        $company->company_name = $request->insurancecom_name;
+        $company->company_name_en = $request->insurancecom_name_en;
+        $company->company_name_ar = $request->insurancecom_name_ar;
         $company->phone1 = $request->insurancecom_phone;
         $company->phone2 = $request->insurancecom_phone2;
         $company->email = $request->insurancecom_email;
@@ -50,8 +50,31 @@ class InsuranceCompanyController extends Controller
     }
 
     public function show_company_detail($id){
-      $compdetail = InsuranceCompany::find($id);
+      $compdetail = InsuranceCompany::where('id',$id)->with('classes')->first();
       return view('admin.insurancecompany.insurancecompanydetail', compact('compdetail'));
+    }
+
+    public function add_new_class(Request $request){
+      $class = new InsuranceCompanyClass();
+      $class->company_id = $request->comp_id;
+      $class->class_name = $request->insurancecom_classification;
+      $class->discount_percentage = $request->insurancecom_discount;
+      $class->fixed_amount = $request->insurancecom_fixedamount;
+      $class->max_amount = $request->insurancecom_maxlimit;
+      $class->save();
+      Session::flash('success', 'تمت العملية بنجاح!');
+      return redirect()->back();
+    }
+
+    public function edit_class(Request $request){
+      $class = InsuranceCompanyClass::find($request->class_id);
+      $class->class_name = $request->insurancecom_classification;
+      $class->discount_percentage = $request->insurancecom_discount;
+      $class->fixed_amount = $request->insurancecom_fixedamount;
+      $class->max_amount = $request->insurancecom_maxlimit;
+      $class->save();
+      Session::flash('success', 'تمت العملية بنجاح!');
+      return redirect()->back();
     }
 
     public function edit_company_page($id){

@@ -7,34 +7,19 @@
 #com_info{
 display:none;
 }
+
+#insurance_info{
+display:none;
+}
   </style>
-          <div class="breadcome-area">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="breadcome-list">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        <ul class="breadcome-menu">
-                                            <!--<li><a href="#">Home</a> <span class="bread-slash">/</span>
-                                            </li>-->
-                                            <li><span class="bread-blod">اضافة العملاء</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
      
         <div class="analytics-sparkle-area">
             <div class="container-fluid">
-
-			
-
+	
+<br>
 <div class="panel panel-default">
+    <div class="panel-heading">{{ __('customer.add_cus') }}</div>
   <div class="panel-body">
 <form action="{{route('add_new_customer')}}"  method="post">
 @csrf
@@ -42,56 +27,49 @@ display:none;
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="email">اسم العميل بالإنجليزي</label>
+      <label for="email">{{ __('customer.cus_name_en') }}</label>
       <input type="text" class="form-control" name="cus_name_en" required>
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="email">اسم العميل بالعربي</label>
+      <label for="email">{{ __('customer.cus_name_ar') }}</label>
       <input type="text" class="form-control" name="cus_name_ar" required>
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">رقم الجوال</label>
+      <label for="pwd">{{ __('customer.phone') }}</label>
       <input type="text" class="form-control" name="cus_phone" required>
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">رقم حساب العميل</label>
-      <input type="text" class="form-control"  name="cus_acc_no">
-    </div>
-</div>
-
-<div class="col-md-4">
-    <div class="form-group">
-      <label for="email">العنوان</label>
+      <label for="email">{{ __('customer.address') }}</label>
       <input type="text" class="form-control" name="cus_address" required>
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">المدينة</label>
+      <label for="pwd">{{ __('customer.city') }}</label>
       <input type="text" class="form-control" name="cus_city" required>
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">المنطقة</label>
+      <label for="pwd">{{ __('customer.area') }}</label>
       <input type="text" class="form-control" name="cus_area" required>
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="email">البريد الالكتروني</label>
+      <label for="email">{{ __('customer.email') }}</label>
       <input type="email" class="form-control" name="cus_email" required>
     </div>
 </div>
@@ -99,10 +77,10 @@ display:none;
 <div class="col-md-12">
 
     <div class="form-group">
-      <label for="pwd">نوع العميل</label>
+      <label for="pwd">{{ __('customer.cus_type') }}</label>
         <div class="radio">
-  <label><input type="radio" name="cus_type" value="0" onclick="company_info_disable()" checked>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;فردي</label>
-  <label><input type="radio" name="cus_type" value="1" onclick="company_info_enable()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;شركة</label>
+  <label><input type="radio" name="cus_type" value="0" onclick="company_info_disable()" checked>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ __('customer.individual') }}</label>
+  <label><input type="radio" name="cus_type" value="1" onclick="company_info_enable()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ __('customer.company') }}</label>
 </div>
     </div>
 </div>
@@ -110,35 +88,35 @@ display:none;
 <div id="com_info">
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">اسم الشركة بالإنجليزي</label>
+      <label for="pwd">{{ __('customer.comp_name_en') }}</label>
       <input type="text" class="form-control" name="com_name_en">
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">اسم الشركة بالعربي</label>
+      <label for="pwd">{{ __('customer.comp_name_ar') }}</label>
       <input type="text" class="form-control" name="com_name_ar">
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="email">الحد الائتماني</label>
+      <label for="email">{{ __('customer.credit_limit') }}</label>
       <input type="text" class="form-control" name="com_credit_limit">
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">المدة الائتمانية</label>
+      <label for="pwd">{{ __('customer.credit_duration') }}</label>
       <input type="text" class="form-control" name="com_credit_duration">
     </div>
 </div>
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="pwd">الرصيد الحالي</label>
+      <label for="pwd">{{ __('customer.current_balance') }}</label>
       <input type="text" class="form-control" name="com_current_balance">
     </div>
 </div>
@@ -148,7 +126,58 @@ display:none;
 
 <div class="row">
    <div class="col-md-12">
-      <button type="submit" class="btn btn-primary">حفظ</button>
+      <div class="form-group form-check">
+      <label class="form-check-label">
+        <input class="form-check-input" type="checkbox" id="insurance_val" name="insurance_val" value="1" onclick="enable_disable_insurance()" {{ (old('active_multi_val') == 1) ? 'checked' : '' }}>&nbsp;&nbsp;&nbsp;&nbsp;
+          {{ __('customer.insur_belong') }}
+      </label>
+    </div>
+    </div>
+</div>
+
+ <div id="insurance_info">
+<div class="row">
+   <div class="col-md-4">
+<div class="form-group">
+  <label for="sel1">{{ __('customer.insur_comp') }}:</label>
+  <select class="form-control" id="insurance" onChange="main_insurance_val()">
+    <option disabled selected>{{ __('customer.choose_insur') }}</option>
+    @foreach($insurance as $value)
+    <option value="{{$value->classes}}">{{$value->company_name}}</option>
+    @endforeach
+  </select>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="form-group">
+  <label for="sel1">{{ __('customer.class') }}:</label>
+  <select class="form-control" id="classes" name="class_id">
+   <!-- <option disabled selected>إختر التصنيف</option>-->
+  </select>
+</div>
+</div>
+
+<div class="col-md-4">
+    <div class="form-group">
+      <label for="pwd">{{ __('customer.card_num') }}</label>
+      <input type="text" class="form-control" name="card_number">
+    </div>
+</div>
+
+<div class="col-md-4">
+    <div class="form-group">
+      <label for="pwd">{{ __('customer.expire_date') }}</label>
+      <input type="date" class="form-control" name="expire_date">
+    </div>
+</div>
+
+ </div>
+</div>
+
+<div class="row">
+   <div class="col-md-12">
+      <button type="submit" class="btn btn-primary">{{ __('customer.save') }}</button>
     </div>
 </div>
 
@@ -167,6 +196,42 @@ document.getElementById("com_info").style.display = "none";
 function company_info_enable(){
 document.getElementById("com_info").style.display = "block";
 }
+
+
+function enable_disable_insurance(){
+   var checkBox = document.getElementById("insurance_val");
+  // If the checkbox is checked, display the output text
+  if (checkBox.checked == true){
+   document.getElementById("insurance_info").style.display = "block";
+  } else {
+    document.getElementById("insurance_info").style.display = "none";
+  }
+}
+</script>
+
+<script>
+  function main_insurance_val() {
+
+    var d = JSON.parse(document.getElementById("insurance").value);
+    //document.getElementById("lis_val").value = d;
+    
+    //console.log(d);
+
+    var catOptions = "";
+    catOptions += "<option value='' disabled selected=''>{{ __('customer.choose_class') }}</option>";
+     if (d.length == 0) {
+      //document.getElementById("subcat").innerHTML = "<option></option>";
+      }else {
+        var name = d.map(({class_name}) => class_name);
+        var id = d.map(({id}) => id);
+        var amount = d.map(({max_amount}) => max_amount);
+        for (x in name) {
+          catOptions += "<option value ='" + id[x] +"'>" + name[x] + "</option>";
+        }
+       // console.log("ddd",d);
+      }
+      document.getElementById("classes").innerHTML = catOptions;
+  }
 </script>
     @endsection
 

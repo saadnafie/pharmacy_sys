@@ -9,7 +9,7 @@ window.onload = function() {
 var chart = new CanvasJS.Chart("chartContainer", {
 	animationEnabled: true,
 	title: {
-		text: "Desktop Search Engine Market Share - 2016"
+		text: "Market Share - 2020"
 	},
 	data: [{
 		type: "pie",
@@ -32,7 +32,7 @@ chart.render();
 var chart2 = new CanvasJS.Chart("chartContainer2", {
 	animationEnabled: true,
 	title:{
-		text: "Composition of Internet Traffic in North America"
+		text: "Sales Rate"
 	},
 	axisX: {
 		interval: 1,

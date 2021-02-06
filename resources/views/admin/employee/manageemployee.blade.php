@@ -32,7 +32,7 @@
 			<b>اجمالي عدد الموظفين</b> <span style="color:green;font-size:16px;">{{count($employees)}}</span>
 			</div>
 			<div class="col-md-3">
-			<b>اجمالي المبيعات</b> <span style="color:green;font-size:16px;">500</span>
+			<b>اجمالي المرتبات</b> <span style="color:green;font-size:16px;">500</span>
 			</div>
 			</div>
 <br>

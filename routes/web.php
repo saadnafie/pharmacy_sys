@@ -57,9 +57,7 @@ Route::get('managebill', function () {
     return view('admin/sale/managebill');
 });
 
-Route::get('addsalesbill', function () {
-    return view('admin/sale/addbill');
-});
+Route::get('addsalesbill','SalesController@show_bill_page');
 
 
 Route::get('returnbill', function () {
@@ -70,9 +68,7 @@ Route::get('pricelist', function () {
     return view('admin/sale/pricelist');
 });
 
-Route::get('pointofsale', function () {
-    return view('admin/sale/pointofsale');
-});
+Route::get('pointofsale','SalesController@sale_point_page');
 
 Route::get('managepointofsale', function () {
     return view('admin/sale/managepointofsale');
@@ -82,6 +78,8 @@ Route::get('managepointofsale', function () {
 Route::get('purchasemanagebill', function () {
     return view('admin/purchase/purchasemanagebill');
 });
+
+Route::get('addpurchasebill','PurchasesController@show_bill_page');
 
 Route::get('purchasereturnbill', function () {
     return view('admin/purchase/purchasereturnbill');
@@ -157,6 +155,16 @@ Route::get('productdetail/{id}', 'StoreController@show_product_detail')->name('p
 
 Route::post('add_new_stock', 'StoreController@add_new_stock')->name('add_new_stock');
 
+    /////////////////// store settings ////////////////////////////
+Route::get('storesetting', function () {
+    return view('admin/store/storesetting');
+});
+
+Route::get('productdefinition', 'StoreController@show_all_definitions')->name('productdefinition');
+Route::post('add_new_category', 'StoreController@add_new_category')->name('add_new_category');
+Route::post('add_new_type', 'StoreController@add_new_type')->name('add_new_type');
+
+
 
 //--------------------------------------employee manage------------------------------
 Route::get('manageemployee', 'EmployeeController@show_all_employee')->name('manageemployee');
@@ -171,9 +179,15 @@ Route::get('editemployee/{id}', 'EmployeeController@edit_employee_page')->name('
 
 Route::post('edit_employee', 'EmployeeController@edit_employee')->name('edit_employee');
 
-Route::get('employee_activation/{id}/{status}', 'SupplierController@employee_activation')->name('employee_activation');
+Route::get('employee_activation/{id}/{status}', 'EmployeeController@employee_activation')->name('employee_activation');
 
+        //////////////////////  org /////////////////////////////
 
+Route::get('orgstructure', 'EmployeeController@show_all_org');
+Route::post('add_new_department', 'EmployeeController@add_new_department')->name('add_new_department');
+Route::post('add_new_job', 'EmployeeController@add_new_job')->name('add_new_job');
+Route::get('department_activation/{id}/{status}', 'EmployeeController@department_activation');
+Route::get('job_activation/{id}/{status}', 'EmployeeController@job_activation');
 
 
 //--------------------------------------Insurance Company------------------------------
@@ -186,9 +200,28 @@ Route::post('add_new_company', 'InsuranceCompanyController@add_new_company')->na
 
 Route::get('insurancecompanydetail/{id}', 'InsuranceCompanyController@show_company_detail')->name('insurancecompanydetail');
 
+Route::post('add_new_class', 'InsuranceCompanyController@add_new_class')->name('add_new_class');
+
+Route::post('edit_class', 'InsuranceCompanyController@edit_class')->name('edit_class');
+
 Route::get('editcompany/{id}', 'InsuranceCompanyController@edit_company_page')->name('editcompany');
 
 Route::post('edit_company', 'InsuranceCompanyController@edit_company')->name('edit_company');
 /*
 Route::get('employee_activation/{id}/{status}', 'InsuranceCompanyController@employee_activation')->name('employee_activation');*/
 
+
+
+//--------------------------------------Branches------------------------------
+
+Route::get('managebranch', 'BranchesController@show_all_branches')->name('managebranch');
+Route::get('addbranch', 'BranchesController@add_branch_page')->name('add_branch_page');
+Route::post('add_new_branch', 'BranchesController@add_new_branch')->name('add_new_branch');
+
+
+//////////////////////////////// General Setting ////////////////////////////////////////
+
+            //////////////////// Tax Setting ////////////////////
+
+Route::get('taxsetting', 'GeneralSettingController@show_tax_setting_page')->name('taxsetting');
+Route::post('update_tax', 'GeneralSettingController@update_tax')->name('update_tax');

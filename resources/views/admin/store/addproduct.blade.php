@@ -6,45 +6,36 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet" />
 
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+
 <style>
 #multi_values{
 	display:none;
 }
 
-.select2-container .select2-selection--single{
+/*.select2-container .select2-selection--single{
     height:34px !important;
 	width:100%;
 }
 .select2-container--default .select2-selection--single{
          border: 1px solid #ccc !important; 
      border-radius: 0px !important; 
-}
+}*/
+.select2-container .select2-selection--single {
+
+height:40px;
+  }
 </style>
-      <div class="breadcome-area">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="breadcome-list">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        <ul class="breadcome-menu">
-                                            <!--<li><a href="#">Home</a> <span class="bread-slash">/</span>
-                                            </li>-->
-                                            <li><span class="bread-blod"> اضافة صنف</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
      
         <div class="analytics-sparkle-area">
             <div class="container-fluid">
-			
+			<br>
 			<div class="panel panel-default">
+        <div class="panel-heading">اضافة صنف</div>
   <div class="panel-body">
 			
 <form action="{{route('add_product')}}" method="post">
@@ -56,9 +47,9 @@
 <div class="form-group">
 <label for="email">النوع</label>
 <div class="radio">
-  <label><input type="radio" name="item_type" value="1" onclick="service_fields_disable()" checked>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;منتج</label>
-  <label><input type="radio" name="item_type" value="2" onclick="service_fields_disable()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;خام</label>
-  <label><input type="radio" name="item_type" value="3" onclick="service_fields_enable()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;خدمة</label>
+  <label><input type="radio" name="item_type" value="1" id="default_val_check" onclick="service_fields_disable()" {{ (old('item_type', 1) == 1) ? 'checked' : '' }} >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;منتج</label>
+  <label><input type="radio" name="item_type" value="2" onclick="service_fields_disable()" {{ (old('item_type') == 2) ? 'checked' : '' }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;خام</label>
+  <label><input type="radio" name="item_type" value="3" onclick="service_fields_enable()" {{ (old('item_type') == 3) ? 'checked' : '' }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;خدمة</label>
 </div>
 
 </div>
@@ -87,12 +78,23 @@
 	</div>
   </div>
 
+  
+<div class="col-sm-4">
+<div class="form-group">
+   <label for="email">الباركود</label>
+      <input type="text" class="form-control" name="barcode" value="{{ old('barcode') }}">
+     @error('barcode')
+    <div class="alert alert-danger">{{ $message }}</div>
+   @enderror
+    </div>
+</div>
+
 <div class="col-sm-4">
 <div class="form-group">
   <label for="email">نوع الضريبة </label>
     <div class="form-control">
-  <label><input type="radio" name="tax_type" value="1"  checked>&nbsp;&nbsp;&nbsp;خاضع</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <label><input type="radio" name="tax_type" value="0" >&nbsp;&nbsp;&nbsp;غير خاضع</label>
+      <label><input type="radio" name="tax_type" value="0" {{ (old('tax_type') == 0) ? 'checked' : '' }}>&nbsp;&nbsp;&nbsp;غير خاضع</label>&nbsp;&nbsp;
+  <label><input type="radio" name="tax_type" value="1"  {{ (old('tax_type') == 1) ? 'checked' : '' }}>&nbsp;&nbsp;&nbsp;خاضع</label>&nbsp;&nbsp;&nbsp;
 </div>
 </div>
 </div>
@@ -100,7 +102,7 @@
 <div class="col-sm-4">
     <div class="form-group">
       <label for="email">سعر البيع الافتراضى</label>
-      <input type="text" class="form-control" name="defaultprice_sale" value="{{ old('defaultprice_sale') }}" required>
+      <input type="number" step="0.0001" class="form-control" name="defaultprice_sale" value="{{ old('defaultprice_sale') }}" required>
     
 	   @error('defaultprice_sale')
     <div class="alert alert-danger">{{ $message }}</div>
@@ -118,9 +120,11 @@
         <option value="{{$value->sup_category}}">{{$value->category}}</option>
         @endforeach
        </select>
+       @if($errors->any())
+    <div class="alert alert-danger">برجاء إختيار التصنيف الرئيسي</div>
+   @endif
     </div>
   </div>  
-
 
 
 <div class="col-sm-4">
@@ -128,6 +132,9 @@
   <label for="email">التصنيف الفرعى</label>
    <select class="form-control"  name="sub_category" id="subcat">
        </select>
+       @if($errors->any())
+    <div class="alert alert-danger">برجاء إختيار التصنيف الفرعي</div>
+   @endif
    </div>
  </div>
 
@@ -167,7 +174,7 @@
 <div class="col-sm-4">
 <div class="form-group">
    <label for="email">المخزون الافتتاحى</label>
-      <input type="text" class="form-control" name="base_amount" value="{{ old('base_amount') }}" >
+      <input type="number" class="form-control" name="base_amount" value="{{ old('base_amount') }}" >
 	  
 	   @error('base_amount')
     <div class="alert alert-danger">{{ $message }}</div>
@@ -204,7 +211,7 @@
       <label for="email">المخزن الافتراضى</label>
       <select class="form-control selectpicker" name="base_store" data-live-search="true">
         @foreach($main_stores as $value)
-        <option value="{{$value->id}}">{{$value->store_name}}</option>
+        <option value="{{$value->id}}" {{ (old('base_store') == $value->id) ? 'selected' : '' }}>{{$value->store_name}}</option>
         @endforeach
        </select>
     </div>
@@ -216,7 +223,7 @@
 <div class="col-sm-4">
 <div class="form-group">
    <label for="email">حد تنيه انتهاء المخزون</label>
-      <input type="text" class="form-control" name="stock_limit_alarm" value="{{ old('stock_limit_alarm') }}">
+      <input type="number" class="form-control" name="stock_limit_alarm" value="{{ old('stock_limit_alarm') }}">
     
 	@error('stock_limit_alarm')
     <div class="alert alert-danger">{{ $message }}</div>
@@ -228,7 +235,7 @@
 <div class="col-sm-4">
 <div class="form-group">
    <label for="email">التركيز</label>
-      <input type="text" class="form-control @error('concentrate') is-invalid @enderror" name="concentrate" value="{{ old('concentrate') }}">
+      <input type="number" step="0.001" class="form-control @error('concentrate') is-invalid @enderror" name="concentrate" value="{{ old('concentrate') }}">
      @error('concentrate')
     <div class="alert alert-danger">{{ $message }}</div>
    @enderror
@@ -241,7 +248,7 @@
  <div class="col-sm-4">
     <div class="form-group">
        <label for="email">سعر الشراء الافتراضى</label>
-      <input type="text" class="form-control" name="defaultprice_purchase" value="{{ old('defaultprice_purchase') }}">
+      <input type="number" step="0.0001" class="form-control" name="defaultprice_purchase" value="{{ old('defaultprice_purchase') }}">
     @error('defaultprice_purchase')
      <div class="alert alert-danger">{{ $message }}</div>
    @enderror
@@ -326,7 +333,7 @@
  <div class="col-sm-12">
     <div class="form-group form-check">
       <label class="form-check-label">
-        <input class="form-check-input" type="checkbox" id="active_multi_val" name="active_multi_val" value="1" onclick="enable_disable_multival()" >&nbsp;&nbsp;&nbsp;&nbsp;تواريخ متعددة
+        <input class="form-check-input" type="checkbox" id="active_multi_val" name="active_multi_val" value="1" onclick="enable_disable_multival()" {{ (old('active_multi_val') == 1) ? 'checked' : '' }}>&nbsp;&nbsp;&nbsp;&nbsp;تواريخ متعددة
 
       </label>
     </div>
@@ -337,17 +344,18 @@
 
 </div>
 
+
 <div id="multi_values">
 
 <div class="row">
  <div class="col-sm-12">
-<br><button type="button" name="add" id="add" class="btn btn-success" ><i class="fa fa-plus"></i></button><br><br>
+<br><button type="button" name="add" id="add" class="btn btn-success add" ><i class="fa fa-plus"></i></button><br><br>
 
 
 
-        <table class="table table-bordered table-striped" id="dynamicTable">  
+        <table class="table table-bordered table-striped main" id="dynamicTable">  
             <tr>
-                <th>المخزن</th>
+                <th style="width:200px;">المخزن</th>
                 <th>الكمية</th>
 				<th>السعر</th>
                 <th>تاريخ الانتاج</th>
@@ -356,23 +364,49 @@
 				<th>حذف</th>
             </tr>
 		
+    @if(old('multi_amount') != null || old('multi_price') != null || old('multi_production_date') != null || old('multi_expire_date') != null || old('multi_expire_date') != null)
+    @foreach(old('multi_notes') as $index=>$val)
 				<tr>  
 					<td>
-					  <select name="multi_store[]"  class="form-control my-select"  data-live-search="true">
+					  <select name="multi_store[]"  class="form-control select2" >
 						<option value="-1" disabled selected>اختر المخزن</option>
 
 						@foreach($stores as $value)
-						<option value="{{$value->id}}">{{$value->store_name}}</option>
+						<option value="{{$value->id}}" {{ ((old('multi_store'))[$index]== $value->id) ? 'selected' : '' }}>{{$value->store_name}}</option>
 						@endforeach
 					  </select>  
 					</td>  
-					<td><input type="text" name="multi_amount[]"  class="form-control" /></td>  
-					<td><input type="text" name="multi_price[]"  class="form-control" /></td>  
-					<td><input type="date" name="multi_production_date[]"  class="form-control" /></td>  
-					 <td><input type="date" name="multi_expire_date[]"  class="form-control" /></td>  
-					<td><input type="text" name="multi_notes[]"  class="form-control" /></td> 
-					<td><button type="button" class="btn btn-danger remove-tr"><i class="fa fa-trash"></i></button></td>  
+					<td><input type="number" name="multi_amount[]" value="{{ (old('multi_amount'))[$index] }}"  class="form-control" /></td>  
+					<td><input type="number" step="0.0001" name="multi_price[]" value="{{ (old('multi_price'))[$index] }}" class="form-control" /></td>  
+					<td><input type="date" name="multi_production_date[]" value="{{ (old('multi_production_date'))[$index] }}" class="form-control" /></td>  
+					 <td><input type="date" name="multi_expire_date[]" value="{{ (old('multi_expire_date'))[$index] }}" class="form-control" /></td>  
+					<td><input type="text" name="multi_notes[]" value="{{ (old('multi_notes'))[$index] }}" class="form-control" /></td> 
+          @if($index == 0)
+					<td>-</td>
+          @else
+          <td><button type="button" class="btn btn-danger remove-tr"><i class="fa fa-trash"></i></button></td>
+          @endif  
 				</tr> 
+        @endforeach
+        @else
+        <tr>  
+          <td>
+            <select name="multi_store[]"  class="form-control select2" >
+            <option value="-1" disabled selected>اختر المخزن</option>
+
+            @foreach($stores as $value)
+            <option value="{{$value->id}}">{{$value->store_name}}</option>
+            @endforeach
+            </select>  
+          </td>  
+          <td><input type="number" name="multi_amount[]"   class="form-control" /></td>  
+          <td><input type="number" step="0.0001" name="multi_price[]"  class="form-control" /></td>  
+          <td><input type="date" name="multi_production_date[]"  class="form-control" /></td>  
+           <td><input type="date" name="multi_expire_date[]"  class="form-control" /></td>  
+          <td><input type="text" name="multi_notes[]"  class="form-control" /></td> 
+          <td>-</td>  
+        </tr> 
+        @endif
 			
         </table> 
 		
@@ -402,19 +436,37 @@
             </div>
         </div>
 		
+
+@if(old('active_multi_val') == 1)
+<script>
+ document.getElementById("multi_values").style.display = "block";
+document.getElementById("if_multi_date").style.display = "none";
+</script>
+@endif
 		
 		
-		
+@if(old('item_type') == 3)
+<script>
+document.getElementById("item_more").style.display = "none";
+document.getElementById("multi_values").style.display = "none";
+document.getElementById("active_multi_val").checked = false;
+</script>
+
+@endif
+
 <script>
 
-$('.my-select').selectpicker();
+//$('.my-select').selectpicker();
 
     function service_fields_disable(){
 document.getElementById("item_more").style.display = "block";
+document.getElementById("if_multi_date").style.display = "block";
 }
 
 function service_fields_enable(){
 document.getElementById("item_more").style.display = "none";
+document.getElementById("multi_values").style.display = "none";
+document.getElementById("active_multi_val").checked = false;
 }
 
 function enable_disable_multival(){
@@ -436,27 +488,42 @@ function enable_disable_multival(){
 </script>
 
 <script type="text/javascript">
-   
-    var i = 0;
-       
-    $("#add").click(function(){
-   
-        ++i;
-   
-	$("#dynamicTable").append('<tr><td><select name="multi_store[]"  class="form-control my-select" data-live-search="true"> <option value="-1">اختر المخزن</option><?php foreach($stores as $value){ ?><option value="{{ $value->id}}">{{ $value->store_name}}</option><?php } ?></select> </td><td><input type="text" name="multi_amount[]"  class="form-control" /></td><td><input type="text" name="multi_price[]"  class="form-control" /></td><td><input type="date" name="multi_production_date[]"  class="form-control" /></td><td><input type="date" name="multi_expire_date[]"  class="form-control" /></td><td><input type="text" name="multi_notes[]"  class="form-control" /></td><td><button type="button" class="btn btn-danger remove-tr"><i class="fa fa-trash"></i></button></td></tr>');
-        $('.my-select').selectpicker();
+          
+    $(".add").click(function(){
+      
+	$(".main").append('<tr> <td> <select name="multi_store[]"  class="form-control select2"> <option value="-1" disabled selected>اختر المخزن</option><?php foreach($stores as $value){ ?> <option value="{{$value->id}}">{{$value->store_name}}</option><?php } ?> </select> </td> <td><input type="number" name="multi_amount[]"  class="form-control" /></td> <td><input type="number" step="0.0001" name="multi_price[]"  class="form-control" /></td> <td><input type="date" name="multi_production_date[]"  class="form-control" /></td> <td><input type="date" name="multi_expire_date[]"  class="form-control" /></td> <td><input type="text" name="multi_notes[]"  class="form-control" /></td> <td><button type="button" class="btn btn-danger remove-tr"><i class="fa fa-trash"></i></button></td> </tr>');
+  /*$('.my-select').selectpicker();
 		$('.my-select').selectpicker('refresh');
-	});
+	});*/
    
     $(document).on('click', '.remove-tr', function(){  
          $(this).parents('tr').remove();
+
+         
     });  
    
-   
+   /*
      $(function() {
-  $('.selectpicker').selectpicker();
+  $('.selectpicker').selectpicker();*/
+  selectRefresh();
 });
 
+</script>
+
+
+<script type="text/javascript">
+  function selectRefresh() {
+  $('.select2').select2({
+    tags: true,
+    placeholder: "Select an Option",
+    allowClear: true,
+    width: '100%'
+  });
+}
+
+$(document).ready(function() {
+  selectRefresh();
+});
 </script>
 
 

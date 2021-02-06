@@ -12,19 +12,23 @@ class Customer extends Model
         'isActive'
     ];
 
+    public function tree(){
+   		return $this->belongsTo('App\Models\TreeAccount', 'tree_id');
+	}
 
-	public function company()
-	{
+	public function company(){
 		return $this->hasOne('App\Models\CustomerCompanyInfo', 'customer_id');
 	}
 
-	public function user()
-	{
+	public function insurance_class(){
+		return $this->hasOne('App\Models\InsuranceCustomer', 'customer_id')->with('class');
+	}
+
+	public function user(){
    		return $this->belongsTo('App\Models\User', 'user_id');
 	}
 
-	public function activation()
-	{
+	public function activation(){
    		return $this->belongsTo('App\Models\Activation', 'isActive');
 	}
 

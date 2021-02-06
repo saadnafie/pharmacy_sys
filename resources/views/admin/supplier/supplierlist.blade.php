@@ -1,38 +1,19 @@
 @extends('admin.layouts.header')
 
 @section('content')
-          <div class="breadcome-area">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="breadcome-list">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                        <ul class="breadcome-menu">
-                                            <!--<li><a href="#">Home</a> <span class="bread-slash">/</span>
-                                            </li>-->
-                                            <li><span class="bread-blod">قائمة الموردين</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
      
         <div class="analytics-sparkle-area">
             <div class="container-fluid">
-			
-			<a href="{{url('addsupplier')}}" class="btn btn-success">اضافة مورد</a>
+			<br>
+			{{ __('supplier.supp_list') }}: <a href="{{url('addsupplier')}}" class="btn btn-success">{{ __('supplier.add_supp') }}</a>
 			<br><br>
 			<div class="row">
 			<div class="col-md-3">
-			<b>اجمالي عدد الموردين</b> <span style="color:green;font-size:16px;">{{count($suppliers)}}</span>
+			<b>{{ __('supplier.supp_count') }}</b> <span style="color:green;font-size:16px;">{{count($suppliers)}}</span>
 			</div>
 			<div class="col-md-3">
-			<b>اجمالي المبيعات</b> <span style="color:green;font-size:16px;">500</span>
+			<b>{{ __('supplier.total_buy') }}</b> <span style="color:green;font-size:16px;">500</span>
 			</div>
 			</div>
 <br>
@@ -44,31 +25,31 @@
     <thead>
       <tr>
         <th>#</th>
-        <th>رقم حساب المورد</th>
-        <th>إسم المورد</th>
-		<th>أنشئ بواسطة</th>
-		<th>تاريخ الانشاء</th>
-		<th>نوع المورد</th>
-		<th>عدد الفواتير</th>
-		<th>اجمالي المبلغ</th>
-		<th>اجمالي مدفوعات للمورد</th>
-		<th>اجمالي المتبقي للمورد </th>
-		<th>الحالة</th>
-		<th>الاجراءات</th>
+        <th>{{ __('supplier.supp_account_num') }}</th>
+        <th>{{ __('supplier.supp_name') }}</th>
+    		<th>{{ __('supplier.created_by') }}</th>
+    		<th>{{ __('supplier.created_at') }}</th>
+    		<th>{{ __('supplier.supp_type') }}</th>
+    		<th>{{ __('supplier.bill_count') }}</th>
+    		<th>{{ __('supplier.total_amount') }}</th>
+    		<th>{{ __('supplier.total_supp_pay') }}</th>
+    		<th>{{ __('supplier.total_supp_remaind') }}</th>
+    		<th>{{ __('supplier.status') }}</th>
+    		<th>{{ __('supplier.settings') }}</th>
       </tr>
     </thead>
     <tbody>
         @foreach($suppliers as $index=>$supplier)
       <tr>
         <td>{{$index+1}}</td>
-        <td>24124124</td>
+        <td>{{$supplier->tree->id_code}}</td>
 		<td>{{$supplier->name}}</td>
         <td>{{$supplier->user->name}}</td>
         <td>{{$supplier->created_at}}</td>
         @if($supplier->type)
-		<td>نقدي</td>
+		<td>{{ __('supplier.cash') }}</td>
         @else
-        <td>آجل</td>
+        <td>{{ __('supplier.postponed') }}</td>
         @endif
 		<td>20</td>
 		<td>100</td>
