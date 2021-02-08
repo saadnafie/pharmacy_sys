@@ -41,10 +41,20 @@ class EmployeeController extends Controller
 
     public function add_new_employee(Request $request){
 
+      $acc = TreeAccount::where('id',11)->with('account')->first();
+      $code = ($acc->id_code.'0000')+count($acc->account) + 1;
+
+      $acc1 = TreeAccount::where('id',12)->with('account')->first();
+      $code1 = ($acc->id_code.'0000')+count($acc->account) + 1;
+
+      $acc2 = TreeAccount::where('id',19)->with('account')->first();
+      $code2 = ($acc->id_code.'0000')+count($acc->account) + 1;
+
       $file = $request->file('emp_photo');
 
       $employee = new Employee();
-      $employee->name = $request->emp_name;
+      $employee->name_en = $request->emp_name_en;
+      $employee->name_ar = $request->emp_name_ar;
       $employee->email = $request->emp_email;
       $employee->image = 'x.jpg';
       $employee->gender = $request->emp_gender;
@@ -70,13 +80,14 @@ class EmployeeController extends Controller
       $employee->save();
       $file->move(public_path("data/employees/images"), $image_name);
 
-      if(isset($request->name)){
+      if(isset($request->login_access)){
         $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->name;
-        $user->address = $request->name;
-        $user->phone = $request->name;
-        $user->password = Hash::make($request->phone);
+        $user->name_en = $request->emp_name_en;
+        $user->name_ar = $request->emp_name_ar;
+        $user->email = $request->emp_email;
+        $user->address = $request->emp_workaddress;
+        $user->phone = $request->emp_workphone;
+        $user->password = Hash::make($request->emp_workphone);
         $user->user_type_id = 2;
         $user->save();
       }

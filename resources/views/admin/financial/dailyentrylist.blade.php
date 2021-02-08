@@ -38,23 +38,27 @@
       <tr>
         <th>#</th>
         <th>التاريخ</th>
-        <th>الحساب</th>
-		<th>مدين</th>
-		<th>دائن</th>
+        <th>العنوان</th>
+		<th>النوع</th>
 		<th>الوصف</th>
 		<th>الاجراءات</th>
       </tr>
     </thead>
     <tbody>
+        @foreach($entries as $index=>$value)
       <tr>
-        <td>1</td>
-        <td>12/11/2020</td>
-		<td>مبيعات</td>
-		<td>1000</td>
-        <td>0</td>
-        <td>لا يوجد</td>
+        <td>{{$index+1}}</td>
+        <td>{{$value->date}}</td>
+		<td>{{$value->title}}</td>
+        @if($value->type == 0)
+		<td>يدوي</td>
+        @else
+        <td>آلي</td>
+        @endif
+        <td>{{$value->description}}</td>
 		<td>-</td>
       </tr>
+      @endforeach
     </tbody>
   </table>
 </div>

@@ -9,6 +9,10 @@ class TreeAccount extends Model
 	//protected $hidden = ['id','id_code','name_ar','account_type','final_account_id','user_id', 'parent_id', 'status', 'created_at', 'updated_at'];
       protected $appends =['text','a_attr'];
 	
+	public function getNameAttribute($value) {
+        //return $this->{'name_ar'};
+		 return $this->{'name_' . App::getLocale()};
+    }
 	
 	public function account()
 	{

@@ -48,8 +48,15 @@
 
 <div class="col-md-4">
     <div class="form-group">
-      <label for="email">اسم الموظف</label>
-      <input type="text" class="form-control" name="emp_name" required>
+      <label for="email">اسم الموظف (en)</label>
+      <input type="text" class="form-control" name="emp_name_en" required>
+    </div>
+</div>
+
+<div class="col-md-4">
+    <div class="form-group">
+      <label for="email">اسم الموظف (ar)</label>
+      <input type="text" class="form-control" name="emp_name_ar" required>
     </div>
 </div>
 

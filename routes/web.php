@@ -41,13 +41,11 @@ Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 Route::get('/accountstree', 'FinancialController@display_account_tree')->name('accountstree');
 Route::post('/add_new_accounttree', 'FinancialController@add_new_accounttree')->name('add_new_accounttree');
 
-Route::get('dailyentrylist', function () {
-    return view('admin/dailyentrylist');
-});
+Route::get('dailyentrylist', 'FinancialController@show_all_entries')->name('dailyentrylist');
 
-Route::get('dailyentry', function () {
-    return view('admin/dailyentry');
-});
+Route::get('dailyentry', 'FinancialController@add_entry_page');
+
+Route::post('add_new_entry', 'FinancialController@add_new_entry')->name('add_new_entry');
 
 Route::get('treasurybanklist', function () {
     return view('admin/treasurybanklist');
