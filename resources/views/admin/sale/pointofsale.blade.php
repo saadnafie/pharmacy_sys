@@ -1,32 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Card</title>
+  <title>Point of Sale</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" >
   
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css" rel="stylesheet" />
+  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
 
 <style>
 body{
-	background-color: brown;
+	background-color: #f8f9fa;
 }
 .dropbtn {
-  background-color: #4CAF50;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
+  background-color: #fff;
+  color: black;
+  padding: 8px;
+  font-size: 14px;
   border: none;
   cursor: pointer;
 }
 
 .dropbtn:hover, .dropbtn:focus {
-  background-color: #3e8e41;
+  background-color: #fff;
 }
 
 #myInput {
@@ -71,8 +79,10 @@ body{
 </head>
 <body> 
 
-<div class="card">
-    <div class="card-body" style="background-color:#58040c;">
+<div class="card" style=" height: 70px; ">
+    <div class="card-body" style="background-color:brown;">
+	<div class="row">
+    <div class="col-lg-4">
 	<div class="dropdown">
 	<button onclick="myFunction()" class="dropbtn"><i class="fa fa-th" aria-hidden="true"></i> Categories</button>
   <div id="myDropdown" class="dropdown-content">
@@ -82,6 +92,22 @@ body{
     @endforeach
   </div>
  </div>  
+  </div>
+  
+    <div class="col-lg-4">
+<div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Search..">
+    <div class="input-group-append">
+      <span class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></span>
+    </div>
+  </div>
+    </div>
+  
+  <div class="col-lg-4">
+  <input type="text" class="form-control" placeholder="Product Barcode">
+   </div>
+
+  </div>
   
  </div> 
   </div> 
@@ -91,14 +117,15 @@ body{
   
 <div class="row">
 
-<div class="col-lg-8">
+<div class="col-md-8 col-sm-12 col-xs-12">
 
 <div class="row">
   @foreach($products as $index=>$value)
-  <div class="col-md-3">
-  <div class="card" >
+  <div class="col-md-4">
+  <div class="card" style="border-radius: 3.25rem;margin-bottom: 20px;">
   <div class="card-body">
-    <a href="#" class="btn btn-primary" onclick="addCode({{$index}})"><i class="fa fa-cart-plus" aria-hidden="true"></i></a>
+    <a href="#" class="btn btn-primary" onclick="addCode({{$index}})" style=" width: 40px; height: 40px; border-radius: 40px; ">
+	<i class="fa fa-cart-plus" aria-hidden="true"></i></a>
 	<input type="hidden" id="pro{{$index}}" value="{{$value}}">
     <b class="card-text" >{{$value->name}}</b>
   </div>
@@ -111,21 +138,23 @@ body{
    </div>
    
    
-   <div class="col-sm-4">
-   <div style="padding:10px;background-color: coral;height: 100vh;">
+   <div class="col-md-4 col-sm-12 col-xs-12">
+   <div style="padding:10px;background-color: #fff;">
+   
+   <div class="table-responsive">
    <table  class="table table-striped">
     <thead>
     <tr>
-		<th>Product</th>
-		<th>Price</th>
-		<th>Quantity</th>
-		<th>Delete</th>
+		<th>Product/Price<br>Quantity/Taxes</th>
+		<th>Sub-Total</th>
+		<th>Total</th>
 	</tr>
 	 </thead>
 	 <tbody id="add_to_me">
 	 
 	 </tbody>
    </table>
+   </div>
    <hr>
    <hr>
    <table>
@@ -140,7 +169,7 @@ body{
     <input type="number" class="form-control" id="usr" placeholder="Discount Value" >
 	</div>
 	<div class="form-group">
-	  <select class="form-control form-control-lg selectpicker" data-live-search="true" >
+	  <select class="form-control form-control-lg select2" >
 		<option data-tokens="Default Customer" selected disabled>Default Customer</option>
     @foreach($customers as $value)
 		<option data-tokens="Customer2">{{$value->name}}</option>
@@ -188,20 +217,28 @@ function filterFunction() {
   function addCode(x) { 
     var pro = JSON.parse(document.getElementById("pro"+x).value);
     //console.log(pro.name);
-    document.getElementById("add_to_me").innerHTML += '<tr><td>'+ pro.name +'</td>'+'<td>'+pro.default_sale_price+'</td>'+'<td><input type="text" value="1"></td>'+'<td><button type="button" class="btn btn-danger remove-tr"><i class="fa fa-trash"></i></button></td>'+'</tr>'; 
+    document.getElementById("add_to_me").innerHTML += '<tr><td>'+ pro.name +'<br>'+pro.default_sale_price+'$ * <input type="text" value="1" style="width:60px;float:right;"></td>'+'<td>-'+'</td>'+'<td>-'+'<button style="float:right;width: 40px; height: 40px; border-radius: 40px;" type="button" class="btn btn-danger remove-tr"><i class="fa fa-trash"></i></button></td>'+'</tr>'; 
   } 
 	
 	$(document).on('click', '.remove-tr', function(){  
 		$(this).parents('tr').remove();
 	});
 		
-	$(function() {
-    $('.selectpicker').select2();
-  });
+  function selectRefresh() {
+    $('.select2').select2({
+      tags: true,
+      placeholder: "Select an Option",
+      allowClear: true,
+      width: '100%'
+    });
+  }
+  
+  $(document).ready(function() {
+  selectRefresh();
+});
 </script> 
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+
 
 </body>
 </html>
