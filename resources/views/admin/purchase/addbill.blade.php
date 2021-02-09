@@ -33,7 +33,7 @@ height:40px;
 <div class="panel panel-default">
   <div class="panel-heading">اضافة فاتورة</div>
   <div class="panel-body">
-<form action="{{route('add_new_customer')}}"  method="post">
+<form action="{{route('add_new_bill')}}"  method="post">
 @csrf
 <div class="row">
 
@@ -102,6 +102,7 @@ height:40px;
 				<th style="width:100px;">نوع الضريبة</th>
 				<th>قيمة الضريبة</th>
 				<th>الاجمالي</th>
+        <th>ملاحظات</th>
 				<th>حذف</th>
             </tr>
             <tr>  
@@ -121,7 +122,8 @@ height:40px;
                 <td><input type="number" name="multi_discount[]"  class="form-control" value="0" id="discount0" onChange="pro_total_pruce(0)" onkeyup="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();"/></td> 
 				<td><input type="text"  name="multi_istax[]" class="form-control" id="isTax0" disabled></td> 
 				<td><input type="number" step="0.001" name="multi_tax_val[]"  class="form-control" value="0" id="taxval0" disabled></td> 
-				<td><input type="number" name="multi_total[]"  class="form-control" id="pro_total0"/></td> 
+				<td><input type="number" name="multi_total[]"  class="form-control" id="pro_total0"/></td>
+        <td><input type="text" name="multi_note[]"  class="form-control"/></td> 
                 <td><!--<button type="button" class="btn btn-danger remove-tr"><i class="fa fa-trash"></i></button>--></td>  
             </tr>  
         </table> 
@@ -148,28 +150,28 @@ height:40px;
 <div class="col-md-2">
     <div class="form-group">
       <label for="pwd">الإجمالي قبل الضريبة</label>
-      <input type="number" step="0.001" class="form-control" id="total_before_tax"  name="cus_acc_no">
+      <input type="number" step="0.001" class="form-control" id="total_before_tax"  name="total_before_tax">
     </div>
 </div>
 
 <div class="col-md-2">
     <div class="form-group">
       <label for="pwd">إجمالي الضريبة</label>
-      <input type="number" step="0.001" class="form-control" id="total_tax" name="cus_acc_no">
+      <input type="number" step="0.001" class="form-control" id="total_tax" name="total_tax">
     </div>
 </div>
 
 <div class="col-md-2">
     <div class="form-group">
       <label for="email"> الإجمالي النهائي</label>
-      <input type="number" step="0.001" class="form-control" name="cus_name" id="final_total" required>
+      <input type="number" step="0.001" class="form-control" name="final_total" id="final_total" required>
     </div>
 </div>
 
 <div class="col-md-2">
     <div class="form-group">
       <label for="pwd">المبلغ المدفوع</label>
-      <input type="number" class="form-control" name="cus_phone" id="paid_amount" onChange="set_remaining_amount()" onkeyup="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" required>
+      <input type="number" class="form-control" name="paid_amount" id="paid_amount" onChange="set_remaining_amount()" onkeyup="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" required>
     </div>
 </div>
 </div>
@@ -178,7 +180,7 @@ height:40px;
 <div class="col-md-2">
     <div class="form-group">
       <label for="pwd">المبلغ المتبقي</label>
-      <input type="number" step="0.001" class="form-control"  name="cus_acc_no" id="remaining_amount">
+      <input type="number" step="0.001" class="form-control"  name="remaining_amount" id="remaining_amount">
     </div>
 </div>
 
@@ -209,7 +211,7 @@ height:40px;
 <div class="col-md-2">
     <div class="form-group">
       <label for="pwd">تاريخ الاستحقاق</label>
-      <input type="date" class="form-control"  name="cus_acc_no" value="{{date('Y-m-d')}}">
+      <input type="date" class="form-control"  name="due_date" value="{{date('Y-m-d')}}">
     </div>
 </div>
 
@@ -251,7 +253,7 @@ height:40px;
 
     ++i;
 
-    $('.main').append('<tr><td><select name="multi_product[]"  id="pro'+i+'" class="form-control select2" onChange="get_pro('+i+')"> <option >إختر المنتج</option><?php foreach($products as $value) { ?> <option value="{{$value->id}}">{{$value->name}}</option> <?php } ?> </select></td><td><input type="date" name="multi_production_date[]"  class="form-control"/></td><td><input type="date" name="multi_expire_date[]"  class="form-control"/></td><td><input type="number" step="0.001" name="multi_price[]"  class="form-control" id="price'+i+'" onChange="price_tax('+i+')"  onpaste="this.onchange();"/></td> <!--<td><input type="text" name="multi_unit[]"  class="form-control" /></td> --> <td><input type="number" name="multi_amount[]"  class="form-control" value="0" id="quantity'+i+'" onChange="pro_total_pruce('+i+')" onkeyup="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();"/></td> <td><input type="number" name="multi_discount[]"  class="form-control" value="0" id="discount'+i+'" onChange="pro_total_pruce('+i+')" onkeyup="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();"/></td> <td><input type="text"  name="multi_istax[]" class="form-control" id="isTax'+i+'" disabled></td> <td><input type="number" step="0.001" name="multi_tax_val[]"  class="form-control" value="0" id="taxval'+i+'" disabled></td> <td><input type="number" name="multi_total[]"  class="form-control" id="pro_total'+i+'"/></td><td><button type="button" class="btn btn-danger remove-tr"><i class="fa fa-trash"></i></button></td></tr>');
+    $('.main').append('<tr><td><select name="multi_product[]"  id="pro'+i+'" class="form-control select2" onChange="get_pro('+i+')"> <option >إختر المنتج</option><?php foreach($products as $value) { ?> <option value="{{$value->id}}">{{$value->name}}</option> <?php } ?> </select></td><td><input type="date" name="multi_production_date[]"  class="form-control"/></td><td><input type="date" name="multi_expire_date[]"  class="form-control"/></td><td><input type="number" step="0.001" name="multi_price[]"  class="form-control" id="price'+i+'" onChange="price_tax('+i+')"  onpaste="this.onchange();"/></td> <!--<td><input type="text" name="multi_unit[]"  class="form-control" /></td> --> <td><input type="number" name="multi_amount[]"  class="form-control" value="0" id="quantity'+i+'" onChange="pro_total_pruce('+i+')" onkeyup="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();"/></td> <td><input type="number" name="multi_discount[]"  class="form-control" value="0" id="discount'+i+'" onChange="pro_total_pruce('+i+')" onkeyup="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();"/></td> <td><input type="text"  name="multi_istax[]" class="form-control" id="isTax'+i+'" disabled></td> <td><input type="number" step="0.001" name="multi_tax_val[]"  class="form-control" value="0" id="taxval'+i+'" disabled></td> <td><input type="number" name="multi_total[]"  class="form-control" id="pro_total'+i+'"/></td><td><input type="text" name="multi_note[]"  class="form-control"/></td><td><button type="button" class="btn btn-danger remove-tr"><i class="fa fa-trash"></i></button></td></tr>');
     selectRefresh();
     set_pro_count();
   });
