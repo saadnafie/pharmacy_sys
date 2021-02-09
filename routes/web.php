@@ -79,6 +79,8 @@ Route::get('purchasemanagebill', function () {
 
 Route::get('addpurchasebill','PurchasesController@show_bill_page');
 
+Route::post('add_new_bill','PurchasesController@add_new_bill')->name('add_new_bill');
+
 Route::get('purchasereturnbill', function () {
     return view('admin/purchase/purchasereturnbill');
 });
